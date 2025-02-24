@@ -1,0 +1,207 @@
+{
+  "services" :[
+    {
+      "id": 1,
+      "name": "Cirugía",
+      "price": 100,
+      "description": "Cirugía de animales",
+      "image": "perro2.jpg",
+      "professionals": [
+        {
+          "id": 1,
+          "name": "Pepe Sanchez",
+          "description": "especialista en cirugía de animales",
+          "image": "perro1.jpg",
+          "time_turns": "30",
+          "working_days": [
+            {
+            "day": "Viernes",
+            "working_hours": {
+                "start": "09:00",
+                "end": "18:00"
+              }
+            },
+            {
+              "day": "Sabado",
+              "working_hours": {
+                "start": "09:00",
+                "end": "18:00"
+              }
+            }  
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Ana Gomez",
+          "description": "Especialista en baño y corte",
+          "image": "perro2.jpg",
+          "time_turns": "40",
+          "working_days": [
+            {
+            "day": "Lunes",
+            "working_hours": {
+                "start": "12:00",
+                "end": "18:00"
+              }
+            },
+            {
+              "day": "Miercoles",
+              "working_hours": {
+                "start": "09:00",
+                "end": "18:00"
+              }
+            }  
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Baño y Corte",
+      "price": 50,
+      "description": "Baño y corte de pelo para mascotas",
+      "image": "perro1.jpg",
+      "professionals": [
+        {
+          "id": 2,
+          "name": "Ana Gomez",
+          "description": "Especialista en baño y corte",
+          "image": "perro2.jpg",
+          "time_turns": "30",
+         "working_days": [
+            {
+            "day": "Martes",
+            "working_hours": {
+                "start": "12:00",
+                "end": "18:00"
+              }
+            },
+            {
+              "day": "Jueves",
+              "working_hours": {
+                "start": "09:00",
+                "end": "18:00"
+              }
+            }  
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Carlos Ruiz",
+          "description": "Veterinario especializado en vacunación",
+          "image": "perro2.jpg",
+          "time_turns": "30",
+          "working_days": [
+            {
+            "day": "Lunes",
+            "working_hours": {
+                "start": "12:00",
+                "end": "18:00"
+              }
+            },
+            {
+              "day": "Martes",
+              "working_hours": {
+                  "start": "12:00",
+                  "end": "18:00"
+                }
+              },
+            {
+              "day": "Miercoles",
+              "working_hours": {
+                "start": "09:00",
+                "end": "18:00"
+              }
+            },
+            {
+              "day": "Jueves",
+              "working_hours": {
+                "start": "09:00",
+                "end": "18:00"
+              }
+            },
+            {
+              "day": "Viernes",
+              "working_hours": {
+                "start": "09:00",
+                "end": "18:00"
+              }
+            }  
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Vacunación",
+      "price": 30,
+      "description": "Vacunación completa para perros y gatos",
+      "image": "perro2.jpg",
+      "professionals": [
+        {
+          "id": 2,
+          "name": "Ana Gomez",
+          "description": "Especialista en baño y corte",
+          "image": "perro2.jpg",
+          "time_turns": "20",
+          "working_days": [
+            {
+            "day": "Lunes",
+            "working_hours": {
+                "start": "12:00",
+                "end": "18:00"
+              }
+            },
+            {
+              "day": "Miercoles",
+              "working_hours": {
+                "start": "09:00",
+                "end": "18:00"
+              }
+            },
+            {
+              "day": "Viernes",
+              "working_hours": {
+                "start": "09:00",
+                "end": "18:00"
+              }
+            }    
+          ]
+            
+          
+        },
+        {
+          "id": 3,
+          "name": "Carlos Ruiz",
+          "description": "Veterinario especializado en vacunación",
+          "image": "perro2.jpg",
+          "time_turns": "30",
+          "working_days": [
+            {
+            "day": "Lunes",
+            "working_hours": {
+                "start": "12:00",
+                "end": "18:00"
+              }
+            },
+            {
+              "day": "Martes",
+              "working_hours": {
+                "start": "09:00",
+                "end": "18:00"
+              }
+            },
+            {
+              "day": "Jueves",
+              "working_hours": {
+                "start": "09:00",
+                "end": "18:00"
+              }
+            }    
+          ]
+        }
+      ]
+    }
+  ]
+  
+}

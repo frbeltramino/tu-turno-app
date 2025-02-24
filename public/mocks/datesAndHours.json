@@ -1,0 +1,819 @@
+{
+  "dates" : [
+    {
+      "date": "2023-02-17",
+      "isActive": false,
+      "isDisabled": true,
+      "id": 1,
+      "month": "Febrero",
+      "day": "Lunes",
+      "dayNumber": "17",
+      "hours": [
+        {
+          "hour": "09:00",
+          "isActive": false,
+          "isDisabled": true,
+          "id": 1,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "09:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 2,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "10:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 3,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "10:30",
+          "isActive": false,
+          "isDisabled": true,
+          "id": 4,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "11:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 5,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "11:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 6,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "12:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 7,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "12:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 8,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "13:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 9,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "13:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 10,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "14:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 11,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "14:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 12,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "15:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 13,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "15:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 14,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "16:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 15,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "16:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 16,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "17:00",
+          "isActive": false,
+          "isDisabled": true,
+          "id": 17,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "17:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 18,
+          "day": "Lunes",
+          "dayNumber": "17"
+        },
+        {
+          "hour": "18:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 19,
+          "day": "Lunes",
+          "dayNumber": "17"
+        }
+      ]
+    },
+    {
+      "date": "2023-02-18",
+      "isActive": false,
+      "isDisabled": false,
+      "id": 2,
+      "month": "Febrero",
+      "day": "Martes",
+      "dayNumber": "18",
+      "hours": [
+        {
+          "hour": "09:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 1,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "09:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 2,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "10:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 3,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "10:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 4,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "11:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 5,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "11:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 6,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "12:00",
+          "isActive": false,
+          "isDisabled": true,
+          "id": 7,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "12:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 8,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "13:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 9,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "13:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 10,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "14:00",
+          "isActive": false,
+          "isDisabled": true,
+          "id": 11,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "14:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 12,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "15:00",
+          "isActive": false,
+          "isDisabled": true,
+          "id": 13,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "15:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 14,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "16:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 15,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "16:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 16,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "17:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 17,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "17:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 18,
+          "day": "Lunes",
+          "dayNumber": "18"
+        },
+        {
+          "hour": "18:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 19,
+          "day": "Lunes",
+          "dayNumber": "18"
+        }
+      ]
+    },
+    {
+      "date": "2023-02-19",
+      "isActive": false,
+      "isDisabled": false,
+      "id": 3,
+      "month": "Febrero",
+      "day": "Miercoles",
+      "dayNumber": "19",
+      "hours": [
+        {
+          "hour": "09:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 1,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "09:30",
+          "isActive": false,
+          "isDisabled": true,
+          "id": 2,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "10:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 3,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "10:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 4,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "11:00",
+          "isActive": false,
+          "isDisabled": true,
+          "id": 5,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "11:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 6,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "12:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 7,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "12:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 8,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "13:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 9,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "13:30",
+          "isActive": false,
+          "isDisabled": true,
+          "id": 10,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "14:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 11,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "14:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 12,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "15:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 13,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "15:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 14,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "16:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 15,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "16:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 16,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "17:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 17,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "17:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 18,
+          "day": "Lunes",
+          "dayNumber": "19"
+        },
+        {
+          "hour": "18:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 19,
+          "day": "Lunes",
+          "dayNumber": "19"
+        }
+      ]
+    },
+    {
+      "date": "2023-02-20",
+      "isActive": false,
+      "isDisabled": false,
+      "id": 4,
+      "month": "Febrero",
+      "day": "Jueves",
+      "dayNumber": "20",
+      "hours": [
+        {
+          "hour": "09:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 1,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "09:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 2,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "10:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 3,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "10:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 4,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "11:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 5,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "11:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 6,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "12:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 7,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "12:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 8,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "13:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 9,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "13:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 10,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "14:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 11,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "14:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 12,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "15:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 13,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "15:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 14,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "16:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 15,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "16:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 16,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "17:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 17,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "17:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 18,
+          "day": "Lunes",
+          "dayNumber": "20"
+        },
+        {
+          "hour": "18:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 19,
+          "day": "Lunes",
+          "dayNumber": "20"
+        }
+      ]
+    },
+    {
+      "date": "2023-02-21",
+      "isActive": false,
+      "isDisabled": false,
+      "id": 5,
+      "month": "Febrero",
+      "day": "Viernes",
+      "dayNumber": "21",
+      "hours": [
+        {
+          "hour": "09:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 1,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "09:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 2,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "10:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 3,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "10:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 4,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "11:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 5,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "11:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 6,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "12:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 7,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "12:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 8,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "13:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 9,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "13:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 10,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "14:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 11,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "14:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 12,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "15:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 13,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "15:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 14,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "16:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 15,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "16:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 16,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "17:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 17,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "17:30",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 18,
+          "day": "Lunes",
+          "dayNumber": "21"
+        },
+        {
+          "hour": "18:00",
+          "isActive": false,
+          "isDisabled": false,
+          "id": 19,
+          "day": "Lunes",
+          "dayNumber": "21"
+        }
+      ]
+    }
+  ]
+}
