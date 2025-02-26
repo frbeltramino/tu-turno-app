@@ -1,0 +1,77 @@
+{
+  "appointments" : [
+    {
+      "day": "Martes",
+      "start_hour": "10:00",
+      "end_hour": "10:30",
+      "date": "2023-02-18",
+      "isActive": false,
+      "isDisabled": true,
+      "id": 1,
+      "client_name": "pepe pepe",
+      "id_professional": 1,
+      "duration": "30"
+    },
+    {
+      "day": "Martes",
+      "start_hour": "10:30",
+      "end_hour": "11:00",
+      "date": "2023-02-18",
+      "isActive": false,
+      "isDisabled": true,
+      "id": 2,
+      "client_name": "pepe pepe",
+      "id_professional": 1,
+      "duration": "30"
+    },
+      {
+        "day": "Viernes",
+        "start_hour": "11:00",
+        "end_hour": "11:30",
+        "date": "2023-02-21",
+        "isActive": false,
+        "isDisabled": true,
+        "id": 3,
+        "client_name": "pepe pepe",
+        "id_professional": 1,
+        "duration": "30"
+      },
+      {
+        "day": "Viernes",
+        "start_hour": "11:30",
+        "end_hour": "12:00",
+        "date": "2023-02-21",
+        "isActive": false,
+        "isDisabled": true,
+        "id": 4,
+        "client_name": "pepe pepe",
+        "id_professional": 1,
+        "duration": "30"
+      },
+      {
+        "day": "Lunes",
+        "start_hour": "09:00",
+        "end_hour": "09:40",
+        "date": "2023-02-17",
+        "isActive": false,
+        "isDisabled": true,
+        "id": 5,
+       "client_name": "pepe pepe",
+        "id_professional": 2,
+        "duration": "40"
+      },
+      {
+        "day": "Lunes",
+        "start_hour": "09:40",
+        "end_hour": "10:20",
+        "date": "2023-02-17",
+        "isActive": false,
+        "isDisabled": true,
+        "id": 6,
+        "client_name": "pepe pepe",
+        "id_professional": 2,
+        "duration": "40"
+      }
+    
+  ]
+}

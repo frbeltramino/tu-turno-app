@@ -1,16 +1,34 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { DateElement } from './DateElement'
 import { DatesAndHoursContext } from '../context/DatesAndHoursContext';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faChevronLeft, faAngleDoubleLeft, faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
 import { LoadingMessage } from './LoadingMessage';
 import { ProfessionalsAndServicesContext } from '../context/ProfessionalsAndServicesContext';
+import { ModalCommon } from './ModalCommon';
 
 export const CalendarSelector = () => {
 
+  const totalDates = 30;
+  const datesPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(0);
+  const [startIndex, setStartIndex] = useState(0);
+
   const { professional} = useContext( ProfessionalsAndServicesContext );
 
+  const [modalOpen, setModalOpen] = useState(false);
+
   const { dates, onSelectDate, calendarLoading } = useContext(DatesAndHoursContext);
+
+  const currentDates = dates.slice(
+        currentPage * datesPerPage,
+        (currentPage + 1) * datesPerPage
+      );
+
+  const onShowModal = () => {
+    setModalOpen(!modalOpen);
+  }
+
 
   return (
     <>
@@ -36,35 +54,47 @@ export const CalendarSelector = () => {
 
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-              <div>
+              <div
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))}
+                disabled={currentPage === 0}
+              >
                 <FontAwesomeIcon className="faChevron icon" icon={faAngleDoubleLeft} size="2x" color="black" style={{ cursor: 'pointer' }} />
-              </div>
-              <div>
-                <FontAwesomeIcon className="faChevron icon" icon={faChevronLeft} size="2x" color="black" style={{ cursor: 'pointer' }} />
               </div>
 
             </div>
             {
-              dates.map((date, index) => {
+
+              currentDates.map((date, index) => {
                 return (
-                  <DateElement dateKey={index} date={date} onSelectDate={onSelectDate} />
+                  <DateElement dateKey={index} date={date} onSelectDate={onSelectDate} onShowModal={onShowModal} />
                 )
               })
             }
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-              <div>
+              <div
+               onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.floor(totalDates / datesPerPage) - 1))}
+               disabled={currentPage >= Math.floor(totalDates / datesPerPage) - 1}
+              >
                 <FontAwesomeIcon className="faChevron icon" icon={faAngleDoubleRight} size="2x" color="black" style={{ cursor: 'pointer' }} />
               </div>
-              <div>
-                <FontAwesomeIcon className="faChevron icon" icon={faChevronRight} size="2x" color="black" style={{ cursor: 'pointer' }} />
-              </div>
-
+              
             </div>
           </div>
 
         </div>
       </div>
       }
+
+      <div className="flex flex-col items-center justify-center h-screen">
+        <ModalCommon isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+          {
+            <div>
+              <div className="modal-header">⚠️</div>
+              <p className='modal-body'>La fecha que quiere seleccionar no se encuentra disponible para éste profesional. Por favor, seleccione otra fecha.</p>
+            </div>
+          }
+        </ModalCommon>
+      </div>
 
 
     </>

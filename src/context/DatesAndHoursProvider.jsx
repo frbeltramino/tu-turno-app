@@ -5,6 +5,7 @@ import { turnConstants } from '../turnConstants';
 
 export const DatesAndHoursProvider = ({ children }) => {
 
+ 
   const [dates, setDates] = useState([]);
   const [selectedDay, setSelectedDay] = useState({});
   const [hours, setHours] = useState([]);
@@ -17,14 +18,41 @@ export const DatesAndHoursProvider = ({ children }) => {
   const [workingHours, setWorkingHours] = useState([]);
 
   const getDates = () => {
-    fetch("/mocks/datesAndHours.json") // Llama al JSON en public/
+    const startDate = new Date();
+    const endDate = new Date();
+    endDate.setDate(startDate.getDate() + 30);
+
+    for (let i = 0; i < 30; i++) {
+      const date = new Date(startDate);
+      date.setDate(date.getDate() + i);
+      const day = turnConstants().turns.spanish_days[date.getDay()];
+      const dayNumber = date.getDate();
+      const month = date.toLocaleString('default', { month: 'long' });
+      const isActive = false;
+      const isDisabled = true;
+      const id = i + 1;
+      dates.push({
+        date: date.toISOString().split('T')[0],
+        isActive,
+        isDisabled,
+        id,
+        month,
+        day,
+        dayNumber
+      });
+    }
+
+    setDates(dates);
+
+
+   /* fetch("/mocks/datesAndHours.json") // Llama al JSON en public/
       .then((response) => response.json())
       .then((data) => {
         setDates(data.dates);
       })
       .catch((error) => {
         console.error("Error cargando datos:", error)
-      });
+      });*/
   };
 
   useEffect(() => {
@@ -66,17 +94,20 @@ export const DatesAndHoursProvider = ({ children }) => {
   };
 
   const divideHours = () => {
-    const hoursAM = [];
-    const hoursPM = [];
-    hours.forEach((hour) => {
-      if (hour.hour <= "13:30") {
-        hoursAM.push(hour);
-      } else {
-        hoursPM.push(hour);
-      }
-    });
-    setHoursAM(hoursAM);
-    setHoursPM(hoursPM);
+    if (hours.length > 0){
+      const hoursAM = [];
+      const hoursPM = [];
+      hours.forEach((hour) => {
+        if (hour.hour <= "13:30") {
+          hoursAM.push(hour);
+        } else {
+          hoursPM.push(hour);
+        }
+      });
+      setHoursAM(hoursAM);
+      setHoursPM(hoursPM);
+    }
+    
 
   };
 
@@ -164,18 +195,23 @@ export const DatesAndHoursProvider = ({ children }) => {
           hour: hour,
           isActive: false,
           isDisabled: false,
-          id: index
+          id: index,
+          //day: date.day,
+          //dayNumber: date.date
         });
       }
       
     });
     setWorkingHours(workingHours);
     setHours(arrHours);
+    
+
   };
 
 
    const setProfessionalWorkingDays = (professionaParam) => {
       const professionalWorkingDays = professionaParam.working_days;
+      const professionalWorkingOcuppedTurns = professionaParam.ocupped_turns;
       const arrWorkingDays = dates;
       const arrProfessionalWorkingDays = [];
   
@@ -188,47 +224,22 @@ export const DatesAndHoursProvider = ({ children }) => {
   
       for (let i = 0; i < professionalWorkingDays.length; i++) {//recorro los dias de trabajo del profesional
         for (let j = 0; j < arrWorkingDays.length; j++) {//recorro los dias que trae el servicio de fechas
-          switch (professionalWorkingDays[i].day) {
-            case turnConstants().turns.days.LUNES:
-              if (arrWorkingDays[j].day !== turnConstants().turns.days.LUNES) break;
-              arrWorkingDays[j] = searchAndModifyDates(arrWorkingDays[j], professionalWorkingDays[i], professionaParam.time_turns);
-              break;
-            case turnConstants().turns.days.MARTES:
-              if (arrWorkingDays[j].day !== turnConstants().turns.days.MARTES) break;
-              arrWorkingDays[j] = searchAndModifyDates(arrWorkingDays[j], professionalWorkingDays[i], professionaParam.time_turns);
-              break;
-            case turnConstants().turns.days.MIERCOLES:
-              if (arrWorkingDays[j].day !== turnConstants().turns.days.MIERCOLES) break;
-              arrWorkingDays[j] = searchAndModifyDates(arrWorkingDays[j], professionalWorkingDays[i], professionaParam.time_turns);
-              break;
-            case turnConstants().turns.days.JUEVES:
-              if (arrWorkingDays[j].day !== turnConstants().turns.days.JUEVES) break;
-              arrWorkingDays[j] = searchAndModifyDates(arrWorkingDays[j], professionalWorkingDays[i], professionaParam.time_turns);
-              break;
-            case turnConstants().turns.days.VIERNES:
-              if (arrWorkingDays[j].day !== turnConstants().turns.days.VIERNES) break;
-              arrWorkingDays[j] = searchAndModifyDates(arrWorkingDays[j], professionalWorkingDays[i], professionaParam.time_turns);
-              break;
-            case turnConstants().turns.days.SABADO:
-              if (arrWorkingDays[j].day !== turnConstants().turns.days.SABADO) break;
-              arrWorkingDays[j] = searchAndModifyDates(arrWorkingDays[j], professionalWorkingDays[i], professionaParam.time_turns);
-              break;
-            case turnConstants().turns.days.DOMINGO:
-              if (arrWorkingDays[j].day !== turnConstants().turns.days.DOMINGO) break;
-              arrWorkingDays[j] = searchAndModifyDates(arrWorkingDays[j], professionalWorkingDays[i], professionaParam.time_turns);
-              break;
+          if (arrWorkingDays[j].day == professionalWorkingDays[i].day) {
+            arrWorkingDays[j] = searchAndModifyDates(arrWorkingDays[j], professionalWorkingDays[i], professionaParam.time_turns);
           }
+
         }
       }
     
       setProfessionalWD(arrWorkingDays);
     }
   
-    const searchAndModifyDates = (date, professionalWorkingDay, timeTurns) => {
+    const searchAndModifyDates = (date, professionalWorkingDay, timeTurns, professionalWorkingOcuppedTurns) => {
       date.isActive = false;
       date.isDisabled = false;
       date.working_hours = professionalWorkingDay.working_hours;
       date.time_turns = timeTurns;
+      date.ocupped_turns = professionalWorkingOcuppedTurns;
       return date 
     }
 
@@ -240,6 +251,12 @@ export const DatesAndHoursProvider = ({ children }) => {
     useEffect(() => {
      
     }, [hoursAM, hoursPM]);
+
+    const resetSelectedDay = () => {
+      setSelectedDay({});
+      setHours([]);
+      resetWorkingHours();
+    }
 
 
   return (
@@ -260,7 +277,8 @@ export const DatesAndHoursProvider = ({ children }) => {
       calendarLoading,
       setProfessionalWH,
       setProfessionalWorkingDays, 
-      resetWorkingHours 
+      resetWorkingHours,
+      resetSelectedDay
     }}>
       {children}
     </DatesAndHoursContext.Provider>

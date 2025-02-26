@@ -380,12 +380,13 @@ export const turnConstants = () => {
       "days": {
         LUNES: "Lunes",
         MARTES: "Martes",
-        MIERCOLES: "Miercoles",
+        MIERCOLES: "Miércoles",
         JUEVES: "Jueves",
         VIERNES: "Viernes",
-        SABADO: "Sabado",
+        SABADO: "Sábado",
         DOMINGO: "Domingo"
-      }
+      },
+      "spanish_days" : ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
     }
   }
 }

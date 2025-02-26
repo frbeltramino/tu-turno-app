@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react'
 import '../styles/mainStyles.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDog, faEdit } from "@fortawesome/free-solid-svg-icons";
-import { ModalServices } from './ModalServices';
 import { ServiceCardComponent } from './ServiceCardComponent';
 import { ProfessionalsAndServicesContext } from '../context/ProfessionalsAndServicesContext';
 import { DatesAndHoursContext } from '../context/DatesAndHoursContext';
+import { ModalCommon } from './ModalCommon';
 
 export const Service = () => {
 
@@ -56,7 +56,7 @@ export const Service = () => {
       </div>
 
       <div className="flex flex-col items-center justify-center h-screen">
-        <ModalServices isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+        <ModalCommon isOpen={modalOpen} onClose={() => setModalOpen(false)}>
           <h3 className="text-xl font-bold">Elegí el servicio a pedir</h3>
 
           {
@@ -67,7 +67,7 @@ export const Service = () => {
             })
           }
 
-        </ModalServices>
+        </ModalCommon>
       </div>
 
     </>

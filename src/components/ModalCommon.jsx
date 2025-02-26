@@ -1,6 +1,6 @@
-import '../styles/mainStyles.css'
+import React from 'react'
 
-export const ModalServices = ({ isOpen, onClose, children }) => {
+export const ModalCommon = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return (

@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react'
 import '../styles/mainStyles.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faEdit, faUser } from "@fortawesome/free-solid-svg-icons";
-import { ModalProfessionals } from './ModalProfessionals';
 import { ProfessionalCardComponent } from './ProfessionalCardComponent';
 import { ProfessionalsAndServicesContext } from '../context/ProfessionalsAndServicesContext';
 import { DatesAndHoursContext } from '../context/DatesAndHoursContext';
+import { ModalCommon } from './ModalCommon';
 
 export const Professional = () => {
 
@@ -13,10 +13,11 @@ export const Professional = () => {
 
   const { selectedService, professional, setProfessional, professionals } = useContext(ProfessionalsAndServicesContext);
 
-  const { setProfessionalWorkingDays } = useContext(DatesAndHoursContext);
+  const { setProfessionalWorkingDays, resetSelectedDay } = useContext(DatesAndHoursContext);
 
   const slectOneProfessional = (professionalParam) => {
     if (professionalParam.id !== professional.id) {
+      resetSelectedDay();
       setProfessional(professionalParam);
       setProfessionalWorkingDays(professionalParam);
     }
@@ -70,7 +71,7 @@ export const Professional = () => {
       </div>
 
       <div className="flex flex-col items-center justify-center h-screen">
-              <ModalProfessionals isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+              <ModalCommon isOpen={modalOpen} onClose={() => setModalOpen(false)}>
                 {
                   selectedService.id == null ?
                   <h3 className="text-xl font-bold">No hay seleccionado ningún servicio</h3>
@@ -86,7 +87,7 @@ export const Professional = () => {
                   }
                 </div>
                 }
-              </ModalProfessionals>
+              </ModalCommon>
             </div>
 
     </>

@@ -132,3 +132,18 @@ p {
   border-radius: 5px;
   border: 1px solid #ffeeba;
 }
+
+.modal-header {
+  color: #fff;
+  background-color: #ffffff;
+  padding: 10px;
+  font-size: 50px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.modal-body {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  text-align: center;
+}
