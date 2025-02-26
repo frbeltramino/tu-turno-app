@@ -34,7 +34,6 @@ export const ProfessionalsAndServicesProvider = ({ children }) => {
   const setProfessionalsDefault = (professionalDefault) => {
     if (professionalDefault.length > 0) {
       setProfessionals(professionalDefault);
-      
     }
     
   };
@@ -43,7 +42,15 @@ export const ProfessionalsAndServicesProvider = ({ children }) => {
    
   }, [selectedService]);
 
-  
+  const getSelectedService = () => {
+    return selectedService;
+  };
+
+  const getSelectedProfessional = () => {
+    return professional;
+  };
+
+
   return (
     <ProfessionalsAndServicesContext.Provider value={{ 
     services,
@@ -53,7 +60,9 @@ export const ProfessionalsAndServicesProvider = ({ children }) => {
     professionals,
     setProfessionals,
     professional,
-    setProfessional 
+    setProfessional ,
+    getSelectedProfessional,
+    getSelectedService
     }}>
       { children }
     </ProfessionalsAndServicesContext.Provider>

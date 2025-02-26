@@ -256,6 +256,14 @@ export const DatesAndHoursProvider = ({ children }) => {
       setSelectedDay({});
       setHours([]);
       resetWorkingHours();
+    };
+
+    const getDateSelected = () => {
+      return selectedDay;
+    };
+
+    const getHourSelected = () => {
+      return selectedHour;
     }
 
 
@@ -278,7 +286,9 @@ export const DatesAndHoursProvider = ({ children }) => {
       setProfessionalWH,
       setProfessionalWorkingDays, 
       resetWorkingHours,
-      resetSelectedDay
+      resetSelectedDay,
+      getDateSelected,
+      getHourSelected
     }}>
       {children}
     </DatesAndHoursContext.Provider>
