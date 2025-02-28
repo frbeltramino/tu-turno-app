@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const HourElement = ({ hour, hourKey, onSelectHour }) => {
+export const HourElement = ({ hour, hourKey, onSelectHour, onShowModal }) => {
   const className = hour.isActive ? 'btn btn-primary' : hour.isDisabled ? 'btn btn-secondary' : 'btn btn-success';
   return (
     <div>
@@ -11,7 +11,7 @@ export const HourElement = ({ hour, hourKey, onSelectHour }) => {
             style={ {  marginLeft: '10px', marginTop: '5px'} }
             onClick={() => {
               if (hour.isDisabled) {
-                window.alert("No puedes seleccionar éste horario");
+                onShowModal();
                 return;
               }
               onSelectHour(hour)

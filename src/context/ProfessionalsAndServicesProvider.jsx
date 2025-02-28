@@ -6,13 +6,24 @@ export const ProfessionalsAndServicesProvider = ({ children }) => {
   const [services, setServices] = useState([]);
   const [professionals, setProfessionals] = useState([]);
   const [professional, setProfessional] = useState({});
+  const [error, setError] = useState({});
 
   const getServices = () => {
     fetch("/mocks/services.json") // Llama al JSON en public/
       .then((response) => response.json())
-      .then((data) => setServices(data.services))
-      .catch((error) => console.error("Error cargando datos:", error));
+      .then((data) => handleData(data))
+      .catch((error) => setError(error));
   };
+
+  const handleData = (data) => {
+    if (data.services){
+      setServices(data.services);
+      setError(false);
+    } else {
+      setError(data.error)
+    }
+    
+  } 
 
   useEffect(() => {
     if (services.length === 0) {
@@ -62,7 +73,8 @@ export const ProfessionalsAndServicesProvider = ({ children }) => {
     professional,
     setProfessional ,
     getSelectedProfessional,
-    getSelectedService
+    getSelectedService,
+    error
     }}>
       { children }
     </ProfessionalsAndServicesContext.Provider>

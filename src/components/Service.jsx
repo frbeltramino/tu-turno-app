@@ -11,7 +11,7 @@ export const Service = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
 
-  const { services, selectedService, slectOneService } = useContext(ProfessionalsAndServicesContext);
+  const { services, selectedService, slectOneService, error } = useContext(ProfessionalsAndServicesContext);
 
    const { resetWorkingHours } = useContext(DatesAndHoursContext);
 
@@ -57,16 +57,22 @@ export const Service = () => {
 
       <div className="flex flex-col items-center justify-center h-screen">
         <ModalCommon isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-          <h3 className="text-xl font-bold">Elegí el servicio a pedir</h3>
-
           {
+            error ?  
+            <div>
+              <div className="modal-header">❌</div>
+              <p className='modal-body'>No se pudieron cargar los servicios.</p>
+            </div>
+            :
             services.map((service, index) => {
               return (
                 <ServiceCardComponent service={service} onSelectionService={handleSelectionService} />
               )
             })
-          }
+          
 
+          }
+          
         </ModalCommon>
       </div>
 

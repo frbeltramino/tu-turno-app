@@ -13,13 +13,15 @@ export const Professional = () => {
 
   const { selectedService, professional, setProfessional, professionals } = useContext(ProfessionalsAndServicesContext);
 
-  const { setProfessionalWorkingDays, resetSelectedDay } = useContext(DatesAndHoursContext);
+  const { setProfessionalWorkingDays, resetSelectedDay, getTurnsNotAvailable } = useContext(DatesAndHoursContext);
 
   const slectOneProfessional = (professionalParam) => {
     if (professionalParam.id !== professional.id) {
-      resetSelectedDay();
+      resetSelectedDay();;
       setProfessional(professionalParam);
       setProfessionalWorkingDays(professionalParam);
+      getTurnsNotAvailable(professionalParam);
+      
     }
   }
 

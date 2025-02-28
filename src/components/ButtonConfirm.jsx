@@ -19,8 +19,8 @@ export const ButtonConfirm = () => {
     <>
       <div div className="col-12 col-md-12" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '16px', marginBottom: '16px' }}>
         <button 
-        className={ getDateSelected().id != null ? 'btn btn-primary' : 'btn btn-secondary'}
-        disabled={ getDateSelected().id == null}
+        className={ getHourSelected().id != null ? 'btn btn-primary' : 'btn btn-secondary'}
+        disabled={ getHourSelected().id == null }
         style={{ width: "200px" }} onClick={() => { setModalOpen(true) }}> 
         <FontAwesomeIcon icon={faShoppingCart} size="1x" color="white" 
         /> Pedir Turno</button>

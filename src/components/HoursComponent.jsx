@@ -1,14 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { HourElement } from './HourElement';
 import { useDateAndHours } from '../hooks/useDateAndHours';
 import { DatesAndHoursContext } from '../context/DatesAndHoursContext';
 import { LoadingMessage } from './LoadingMessage';
+import { ModalCommon } from './ModalCommon';
 
 
 export const HoursComponent = () => {
 
 
   const { hours, hoursAM, hoursPM, onSelectHour, hoursLoading } = useContext(DatesAndHoursContext);
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const onShowModal = () => {
+    setModalOpen(!modalOpen);
+  }
 
 
   return (
@@ -37,7 +44,7 @@ export const HoursComponent = () => {
             {
               hoursAM.map((hour, index) => {
                 return (
-                  <HourElement hour={hour} hourKey={index} onSelectHour={onSelectHour} />
+                  <HourElement hour={hour} hourKey={index} onSelectHour={onSelectHour} onShowModal={onShowModal} />
                 )
               })
             }
@@ -46,13 +53,24 @@ export const HoursComponent = () => {
             {
               hoursPM.map((hour, index) => {
                 return (
-                  <HourElement hour={hour} hourKey={index} onSelectHour={onSelectHour} />
+                  <HourElement hour={hour} hourKey={index} onSelectHour={onSelectHour} onShowModal={onShowModal} />
                 )
               })
             }
           </div>
         </div>
       }
+
+      <div className="flex flex-col items-center justify-center h-screen">
+        <ModalCommon isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+          {
+            <div>
+              <div className="modal-header">⚠️</div>
+              <p className='modal-body'>La hora que quiere seleccionar no se encuentra disponible para éste profesional. Por favor, seleccione otra hora.</p>
+            </div>
+          }
+        </ModalCommon>
+      </div>
 
     </>
   )

@@ -29,6 +29,11 @@ export const CalendarSelector = () => {
     setModalOpen(!modalOpen);
   }
 
+  const handleOnSelectDate = (date) => {
+    onSelectDate(date, professional);
+    setModalOpen(false);
+  }
+
 
   return (
     <>
@@ -66,7 +71,7 @@ export const CalendarSelector = () => {
 
               currentDates.map((date, index) => {
                 return (
-                  <DateElement dateKey={index} date={date} onSelectDate={onSelectDate} onShowModal={onShowModal} />
+                  <DateElement dateKey={index} date={date} onSelectDate={handleOnSelectDate} onShowModal={onShowModal} />
                 )
               })
             }
