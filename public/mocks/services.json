@@ -6,13 +6,14 @@
       "price": 100,
       "description": "Cirugía de animales",
       "image": "perro2.jpg",
+      "time_turns": "20",
       "professionals": [
         {
           "id": 1,
           "name": "Pepe Sanchez",
           "description": "especialista en cirugía de animales",
           "image": "perro1.jpg",
-          "time_turns": "30",
+          
           "working_days": [
             {
             "day": "Viernes",
@@ -28,6 +29,14 @@
                 "end": "18:00"
               }
             }  
+          ],
+          "holidays": [
+            "2025-03-10",
+            "2025-03-11",
+            "2025-03-12",
+            "2025-03-13",
+            "2025-03-14",
+            "2025-03-15"
           ]
         },
         {
@@ -35,7 +44,6 @@
           "name": "Ana Gomez",
           "description": "Especialista en baño y corte",
           "image": "perro2.jpg",
-          "time_turns": "40",
           "working_days": [
             {
             "day": "Lunes",
@@ -51,6 +59,12 @@
                 "end": "18:00"
               }
             }  
+          ],
+          "holidays": [
+            "2025-03-15",
+            "2025-03-16",
+            "2025-03-17",
+            "2025-03-18"
           ]
         }
       ]
@@ -61,13 +75,13 @@
       "price": 50,
       "description": "Baño y corte de pelo para mascotas",
       "image": "perro1.jpg",
+      "time_turns": "40",
       "professionals": [
         {
           "id": 2,
           "name": "Ana Gomez",
           "description": "Especialista en baño y corte",
           "image": "perro2.jpg",
-          "time_turns": "40",
          "working_days": [
             {
             "day": "Martes",
@@ -83,14 +97,14 @@
                 "end": "18:00"
               }
             }  
-          ]
+          ],
+          "holidays": []
         },
         {
           "id": 3,
           "name": "Carlos Ruiz",
           "description": "Veterinario especializado en vacunación",
           "image": "perro2.jpg",
-          "time_turns": "30",
           "working_days": [
             {
             "day": "Lunes",
@@ -127,6 +141,12 @@
                 "end": "18:00"
               }
             }  
+          ],
+          "holidays": [
+            "2025-03-10",
+            "2025-03-11",
+            "2025-03-12",
+            "2025-03-13"
           ]
         }
       ]
@@ -137,13 +157,13 @@
       "price": 30,
       "description": "Vacunación completa para perros y gatos",
       "image": "perro2.jpg",
+      "time_turns": "30",
       "professionals": [
         {
           "id": 2,
           "name": "Ana Gomez",
           "description": "Especialista en baño y corte",
           "image": "perro2.jpg",
-          "time_turns": "40",
           "working_days": [
             {
             "day": "Lunes",
@@ -166,14 +186,14 @@
                 "end": "18:00"
               }
             }    
-          ]
+          ],
+          "holidays": []
         },
         {
           "id": 3,
           "name": "Carlos Ruiz",
           "description": "Veterinario especializado en vacunación",
           "image": "perro2.jpg",
-          "time_turns": "30",
           "working_days": [
             {
             "day": "Lunes",
@@ -196,6 +216,12 @@
                 "end": "18:00"
               }
             }    
+          ],
+          "holidays": [
+            "2025-03-10",
+            "2025-03-11",
+            "2025-03-12",
+            "2025-03-13"
           ]
         }
       ]

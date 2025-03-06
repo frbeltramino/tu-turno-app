@@ -5,7 +5,7 @@ import { turnConstants } from '../turnConstants';
 
 export const DatesAndHoursProvider = ({ children }) => {
 
- 
+
   const [dates, setDates] = useState([]);
   const [selectedDay, setSelectedDay] = useState({});
   const [hours, setHours] = useState([]);
@@ -20,88 +20,11 @@ export const DatesAndHoursProvider = ({ children }) => {
   const [professional, setProfessional] = useState({});
   const [feriados, setFeriados] = useState([]);
 
-  const getDates = () => {
-    const startDate = new Date();
-    const endDate = new Date();
-    endDate.setDate(startDate.getDate() + 30);
 
-    for (let i = 0; i < 30; i++) {
-      const date = new Date(startDate);
-      date.setDate(date.getDate() + i);
-      const day = turnConstants().turns.spanish_days[date.getDay()];
-      const dayNumber = date.getDate();
-      const month = date.toLocaleString('default', { month: 'long' });
-      const isActive = false;
-      const isDisabled = true;
-      const id = i + 1;
-      dates.push({
-        date: date.toISOString().split('T')[0],
-        isActive,
-        isDisabled,
-        id,
-        month,
-        day,
-        dayNumber
-      });
-    }
-
-    setDates(dates);
-  };
-
-  useEffect(() => {
-    if (dates.length === 0) {
-      getDates();
-    } else {
-      setDates(dates);
-    }
-  }, []);
-
-  const getFeriados = () => {
-    fetch("/mocks/feriados2025.json") // Llama al JSON en public/
-      .then((response) => response.json())
-      .then((data) => setFeriados(data.feriados))
-      .catch((error) => console.error("Error cargando datos:", error));
-  };
-
-  useEffect(() => {
-    if (feriados.length === 0) {
-      getFeriados();
-    } else {
-      setFeriados(feriados);
-    }
-  }, []);
 
   // const setDatesAndHours = (datesAndHours) => {
   //   setDates(datesAndHours);
   // };
-
-  const onSelectDate = (date, professional) => {
-    setOneDayActive(date);
-    //getTurnsNotAvailable(date);//llamaria al servicio de traer turnos una vez seleccionados profesional y fecha
-    
-
-  };
-
-  const setOneDayActive = (date) => {
-    // selecciono el dia activo
-    if (selectedDay.isActive) {
-      selectedDay.isActive = !selectedDay.isActive;
-    }
-    date.isActive = !date.isActive;
-    setSelectedDay(date);
-    setProfessionalWH(date);
-    //setHours(date.hours);
-    // divideHours();
-    const newDates = dates;
-    for (let i = 0; i < newDates.length; i++) {
-      if (newDates[i].id === selectedDay.id) {
-        newDates[i] = selectedDay;
-      }
-    }
-    setDates(newDates);
-    
-
-  };
 
   useEffect(() => {
     if (appointments.length === 0) {
@@ -114,18 +37,18 @@ export const DatesAndHoursProvider = ({ children }) => {
   const getTurnsNotAvailable = (professional) => {
     setProfessional(professional);
     fetch("/mocks/appointments.json") // Llama al JSON en public/
-    .then((response) => response.json())
-    .then((data) => {
-      setAppointments(data.appointments);
-      
-    })
-    .catch((error) => {
-      console.error("Error cargando turnos cargados:", error)
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        setAppointments(data.appointments);
+
+      })
+      .catch((error) => {
+        console.error("Error cargando turnos cargados:", error)
+      });
   }
 
   const divideHours = () => {
-    if (hours.length > 0){
+    if (hours.length > 0) {
       const hoursAM = [];
       const hoursPM = [];
       hours.forEach((hour) => {
@@ -138,7 +61,7 @@ export const DatesAndHoursProvider = ({ children }) => {
       setHoursAM(hoursAM);
       setHoursPM(hoursPM);
     }
-    
+
 
   };
 
@@ -164,46 +87,6 @@ export const DatesAndHoursProvider = ({ children }) => {
   const showHoursLoading = (isLoading) => {
     setHoursLoading(isLoading);
   };
-
-  const showCalendarLoading = (isLoading) => {
-    setCalendarLoading(isLoading);
-  };
-
-  useEffect(() => {
-   
-  }, [selectedDay]);
-
-
-
-  const setProfessionalWD = (workingDates) => {
-    setDates(workingDates);
-    if (feriados.length > 0) {    
-      setHolidayDates();
-    } else {
-      setWorkingDates(workingDates);
-    }
-  };
-
-  const setHolidayDates = () => {
-    const arrDatesWithHolidays = [];
-    for (let i = 0; i < dates.length; i++) {
-      for (let j = 0; j < feriados.length; j++) {
-        if (dates[i].date === feriados[j].fecha) {
-          dates[i].isHoliday = true;
-          dates[i].isDisabled = true;
-        }
-        arrDatesWithHolidays.push(dates[i]);
-      }
-    } 
-    setWorkingDates(arrDatesWithHolidays);
-  }
-
-  useEffect(() => {
-    showCalendarLoading(true);
-    setTimeout(() => {
-      showCalendarLoading(false);
-    }, 1000);
-  }, [workingDates]);
 
   const setProfessionalWH = (date) => {
     const profWorkingHours = date.working_hours;
@@ -242,10 +125,10 @@ export const DatesAndHoursProvider = ({ children }) => {
         arrAppointments.push(appointments[i]);
       }
     }
-    
+
     arrHours = verifyAppointmentsHours(timeTurnsConstant, profWorkingHours, professional, date, arrAppointments);
-    
-    if (arrHours.length > 0){
+
+    if (arrHours.length > 0) {
       const hoursAM = [];
       const hoursPM = [];
       arrHours.forEach((hour) => {
@@ -301,71 +184,214 @@ export const DatesAndHoursProvider = ({ children }) => {
   }
 
 
-   const setProfessionalWorkingDays = (professionaParam) => {
-      const professionalWorkingDays = professionaParam.working_days;
-      const professionalWorkingOcuppedTurns = professionaParam.ocupped_turns;
-      const arrWorkingDays = dates;
-      const arrProfessionalWorkingDays = [];
-  
-      for (let l = 0; l < arrWorkingDays.length; l++) {//recorro los dias que trae el servicio de fechas
-        arrWorkingDays[l].isDisabled = true;
-        arrWorkingDays[l].working_hours = {};
-        arrWorkingDays[l].time_turns = "";
-        arrWorkingDays[l].isActive = false;
-      }
-  
-      for (let i = 0; i < professionalWorkingDays.length; i++) {//recorro los dias de trabajo del profesional
-        for (let j = 0; j < arrWorkingDays.length; j++) {//recorro los dias que trae el servicio de fechas
-          if (arrWorkingDays[j].day == professionalWorkingDays[i].day) {
-            arrWorkingDays[j] = searchAndModifyDates(arrWorkingDays[j], professionalWorkingDays[i], professionaParam.time_turns);
-          }
 
+  //---------------------------------------------------------------worging days--------------------------------------------------------------------//
+
+  const showCalendarLoading = (isLoading) => {
+    setCalendarLoading(isLoading);
+  };
+
+  const getDates = () => {
+    const startDate = new Date();
+    const endDate = new Date();
+    endDate.setDate(startDate.getDate() + 30);
+
+    for (let i = 0; i < 30; i++) {
+      const date = new Date(startDate);
+      date.setDate(date.getDate() + i);
+      const day = turnConstants().turns.spanish_days[date.getDay()];
+      const dayNumber = date.getDate();
+      const month = date.toLocaleString('default', { month: 'long' });
+      const isActive = false;
+      const isDisabled = true;
+      const id = i + 1;
+      dates.push({
+        date: date.toISOString().split('T')[0],
+        isActive,
+        isDisabled,
+        id,
+        month,
+        day,
+        dayNumber
+      });
+    }
+
+    setDates(dates);
+  };
+
+  useEffect(() => {
+    if (dates.length === 0) {
+      getDates();
+    } else {
+      setDates(dates);
+    }
+  }, []);
+
+  const getFeriados = () => {
+    fetch("/mocks/feriados2025.json") // Llama al JSON en public/
+      .then((response) => response.json())
+      .then((data) => setFeriados(data.feriados))
+      .catch((error) => console.error("Error cargando datos:", error));
+  };
+
+  useEffect(() => {
+    if (feriados.length === 0) {
+      getFeriados();
+    } else {
+      setFeriados(feriados);
+    }
+  }, []);
+
+  useEffect(() => {
+
+  }, [selectedDay]);
+
+  const setProfessionalWorkingDays = (professionaParam, timeTurns) => {
+    setProfessional(professionaParam);
+    const professionalWorkingDays = professionaParam.working_days;
+    const professionalWorkingOcuppedTurns = professionaParam.ocupped_turns;
+    const professionalHolidays = professionaParam.holidays;
+    const arrWorkingDays = dates;
+    const arrProfessionalWorkingDays = [];
+
+    for (let l = 0; l < arrWorkingDays.length; l++) {//recorro los 30 dias que genero a paretir de hoy
+      arrWorkingDays[l].isDisabled = true;
+      arrWorkingDays[l].working_hours = {};
+      arrWorkingDays[l].time_turns = "";
+      arrWorkingDays[l].isActive = false;
+    }
+
+    for (let i = 0; i < professionalWorkingDays.length; i++) {//recorro los dias de trabajo del profesional
+      for (let j = 0; j < arrWorkingDays.length; j++) {//recorro los 30 dias que genero a paretir de hoy
+        if (arrWorkingDays[j].day == professionalWorkingDays[i].day) {
+          arrWorkingDays[j] = searchAndModifyDates(arrWorkingDays[j], professionalWorkingDays[i], timeTurns);
+        }
+
+      }
+    }
+
+    setProfessionalWD(arrWorkingDays, professionalHolidays);
+  }
+
+  const setProfessionalWD = (workingDates, professionalHolidays) => {
+    setDates(workingDates);
+    if (feriados.length > 0) {
+      setHolidayDates();
+    } else {
+      setWorkingDates(workingDates);
+    }
+    if (professionalHolidays.length > 0) {
+      setHolidaysProfessional(workingDates, professionalHolidays);
+    }
+  };
+
+  const setHolidayDates = () => {// seteo feriados
+    const arrDatesWithHolidays = [];
+    for (let i = 0; i < dates.length; i++) {//recorro los dias laborales del profesional
+      for (let j = 0; j < feriados.length; j++) { // recorro los feriados
+        if (dates[i].date === feriados[j].fecha) {
+          dates[i].isHoliday = true;
+          dates[i].isDisabled = true;
+        }
+        arrDatesWithHolidays.push(dates[i]);
+      }
+    }
+    setWorkingDates(arrDatesWithHolidays);
+  }
+
+  const setHolidaysProfessional = (workingDates, professionalHolidays) => {// Seteo vacaciones de los profesionales
+    const arrWorkingDays = workingDates;
+    for (let i = 0; i < professionalHolidays.length; i++) {
+      for (let j = 0; j < arrWorkingDays.length; j++) {
+        if (arrWorkingDays[j].date === professionalHolidays[i]) {
+          arrWorkingDays[j].isHoliday = true;
+          arrWorkingDays[j].isDisabled = true;
         }
       }
-    
-      setProfessionalWD(arrWorkingDays);
     }
-  
-    const searchAndModifyDates = (date, professionalWorkingDay, timeTurns, professionalWorkingOcuppedTurns) => {
-      date.isActive = false;
-      date.isDisabled = false;
-      date.working_hours = professionalWorkingDay.working_hours;
-      date.time_turns = timeTurns;
-      date.ocupped_turns = professionalWorkingOcuppedTurns;
-      return date 
+    setWorkingDates(arrWorkingDays);
+  }
+
+  useEffect(() => {
+    showCalendarLoading(true);
+    setTimeout(() => {
+      showCalendarLoading(false);
+    }, 1000);
+  }, [workingDates]);
+
+
+
+
+
+
+  const searchAndModifyDates = (date, professionalWorkingDay, timeTurns, professionalWorkingOcuppedTurns) => {
+    date.isActive = false;
+    date.isDisabled = false;
+    date.working_hours = professionalWorkingDay.working_hours;
+    date.time_turns = timeTurns;
+    date.ocupped_turns = professionalWorkingOcuppedTurns;
+    return date
+  }
+
+  const resetWorkingHours = () => {
+    setHoursAM([]);
+    setHoursPM([]);
+  }
+
+  useEffect(() => {
+    showHoursLoading(true);
+    setTimeout(() => {
+      showHoursLoading(false);
+    }, 1000);
+
+  }, [hoursAM, hoursPM]);
+
+  const resetSelectedDay = () => {
+    setSelectedDay({});
+    setHours([]);
+    resetWorkingHours();
+    setSelectedHour({});
+  };
+
+  const getDateSelected = () => {
+    return selectedDay;
+  };
+
+  const getHourSelected = () => {
+    return selectedHour;
+  }
+
+  const onSelectDate = (date, professional) => {
+    setOneDayActive(date);
+    //getTurnsNotAvailable(date);//llamaria al servicio de traer turnos una vez seleccionados profesional y fecha
+
+
+  };
+
+  const setOneDayActive = (date) => {
+    // selecciono el dia activo
+    if (selectedDay.isActive) {
+      selectedDay.isActive = !selectedDay.isActive;
     }
-
-    const resetWorkingHours = () => {
-      setHoursAM([]);
-      setHoursPM([]);
+    date.isActive = !date.isActive;
+    setSelectedDay(date);
+    setProfessionalWH(date);
+    //setHours(date.hours);
+    // divideHours();
+    const newDates = dates;
+    for (let i = 0; i < newDates.length; i++) {
+      if (newDates[i].id === selectedDay.id) {
+        newDates[i] = selectedDay;
+      }
     }
+    setDates(newDates);
 
-    useEffect(() => {
-      showHoursLoading(true);
-      setTimeout(() => {
-       showHoursLoading(false);
-     }, 1000);
-     
-    }, [hoursAM, hoursPM]);
 
-    const resetSelectedDay = () => {
-      setSelectedDay({});
-      setHours([]);
-      resetWorkingHours();
-      setSelectedHour({});
-    };
-
-    const getDateSelected = () => {
-      return selectedDay;
-    };
-
-    const getHourSelected = () => {
-      return selectedHour;
-    }
+  };
 
 
   return (
-    <DatesAndHoursContext.Provider value={{ 
+    <DatesAndHoursContext.Provider value={{
       dates,
       setDates,
       selectedDay,
@@ -381,7 +407,7 @@ export const DatesAndHoursProvider = ({ children }) => {
       setProfessionalWD,
       calendarLoading,
       setProfessionalWH,
-      setProfessionalWorkingDays, 
+      setProfessionalWorkingDays,
       resetWorkingHours,
       resetSelectedDay,
       getDateSelected,

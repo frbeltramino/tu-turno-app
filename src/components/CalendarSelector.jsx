@@ -59,12 +59,14 @@ export const CalendarSelector = () => {
 
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-              <div
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))}
-                disabled={currentPage === 0}
+             
+              <button
+              className={`btn rounded-pill px-2 py-1 ${currentPage === 0 ? "btn-secondary" : "btn-dark"}`}
+                  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))}
+                  disabled={currentPage === 0}
               >
-                <FontAwesomeIcon className="faChevron icon" icon={faAngleDoubleLeft} size="2x" color="black" style={{ cursor: 'pointer' }} />
-              </div>
+                <FontAwesomeIcon className="faChevron icon" icon={faAngleDoubleLeft} size="2x" color="white" style={{ cursor: 'pointer' }} />
+              </button>
 
             </div>
             {
@@ -75,13 +77,14 @@ export const CalendarSelector = () => {
                 )
               })
             }
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-              <div
-               onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.floor(totalDates / datesPerPage) - 1))}
-               disabled={currentPage >= Math.floor(totalDates / datesPerPage) - 1}
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginRight: '5px' }}>
+              <button
+              className={`btn rounded-pill px-2 py-1 ${currentPage >= Math.floor(totalDates / datesPerPage) - 1 ? "btn-secondary" : "btn-dark"}`}
+                  onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.floor(totalDates / datesPerPage) - 1))}
+                  disabled={currentPage >= Math.floor(totalDates / datesPerPage) - 1}
               >
-                <FontAwesomeIcon className="faChevron icon" icon={faAngleDoubleRight} size="2x" color="black" style={{ cursor: 'pointer' }} />
-              </div>
+                <FontAwesomeIcon className="faChevron icon" icon={faAngleDoubleRight} size="2x" color="white" style={{ cursor: 'pointer' }} />
+              </button>
               
             </div>
           </div>

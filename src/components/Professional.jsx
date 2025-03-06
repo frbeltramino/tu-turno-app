@@ -19,7 +19,7 @@ export const Professional = () => {
     if (professionalParam.id !== professional.id) {
       resetSelectedDay();;
       setProfessional(professionalParam);
-      setProfessionalWorkingDays(professionalParam);
+      setProfessionalWorkingDays(professionalParam, selectedService.time_turns);
       getTurnsNotAvailable(professionalParam);
       
     }
