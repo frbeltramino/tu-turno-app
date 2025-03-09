@@ -16,6 +16,20 @@
           
           "working_days": [
             {
+              "day": "Lunes",
+              "working_hours": {
+                  "start": "09:00",
+                  "end": "18:00"
+                }
+            },
+            {
+              "day": "Martes",
+              "working_hours": {
+                  "start": "09:00",
+                  "end": "18:00"
+                }
+            },
+            {
             "day": "Viernes",
             "working_hours": {
                 "start": "09:00",
@@ -31,10 +45,6 @@
             }  
           ],
           "holidays": [
-            "2025-03-10",
-            "2025-03-11",
-            "2025-03-12",
-            "2025-03-13",
             "2025-03-14",
             "2025-03-15"
           ]

@@ -1,6 +1,7 @@
-import React from 'react'
+import Swal from 'sweetalert2';
+import "sweetalert2/dist/sweetalert2.min.css";
 
-export const HourElement = ({ hour, hourKey, onSelectHour, onShowModal }) => {
+export const HourElement = ({ hour, hourKey, onSelectHour }) => {
   const className = hour.isActive ? 'btn btn-primary' : hour.isDisabled ? 'btn btn-secondary' : 'btn btn-success';
   return (
     <div>
@@ -11,7 +12,7 @@ export const HourElement = ({ hour, hourKey, onSelectHour, onShowModal }) => {
             style={ {  marginLeft: '10px', marginTop: '5px'} }
             onClick={() => {
               if (hour.isDisabled) {
-                onShowModal();
+                Swal.fire('Hora no disponible', 'Por favor seleccione otra hora', 'error');
                 return;
               }
               onSelectHour(hour)

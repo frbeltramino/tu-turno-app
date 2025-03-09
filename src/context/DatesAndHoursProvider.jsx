@@ -20,8 +20,6 @@ export const DatesAndHoursProvider = ({ children }) => {
   const [professional, setProfessional] = useState({});
   const [feriados, setFeriados] = useState([]);
 
-
-
   // const setDatesAndHours = (datesAndHours) => {
   //   setDates(datesAndHours);
   // };

@@ -14,6 +14,21 @@ export const ButtonConfirm = () => {
    const { getDateSelected, getHourSelected } = useContext(DatesAndHoursContext);
    const { getSelectedService, getSelectedProfessional } = useContext(ProfessionalsAndServicesContext);
 
+   const onSubmitAppointment = () => {
+    const inputParams = {
+      serviceName: getSelectedService().name,
+      serviceId: getSelectedService().id,
+      professionalName: getSelectedProfessional().name,
+      professionalId: getSelectedProfessional().id,
+      date: getDateSelected().date,
+      hour: getHourSelected().hour,
+      userName:"Juan",
+      userEmail:"juan@gmail.com",
+      userId:"123456789"
+    }
+    console.log(inputParams);
+  }
+
 
   return (
     <>
@@ -46,7 +61,7 @@ export const ButtonConfirm = () => {
 
               <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 <button className="btn btn-secondary" onClick={() => setModalOpen(false)}>Cancelar</button>
-                <button className="btn btn-success" onClick={() => console.log("turno confirmado")}>Confirmar</button>
+                <button className="btn btn-success" onClick={() => onSubmitAppointment() }>Confirmar</button>
               </div>
             </div>
           }

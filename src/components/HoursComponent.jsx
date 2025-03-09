@@ -11,12 +11,6 @@ export const HoursComponent = () => {
 
   const { hours, hoursAM, hoursPM, onSelectHour, hoursLoading } = useContext(DatesAndHoursContext);
 
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const onShowModal = () => {
-    setModalOpen(!modalOpen);
-  }
-
 
   return (
     <>
@@ -44,7 +38,7 @@ export const HoursComponent = () => {
             {
               hoursAM.map((hour, index) => {
                 return (
-                  <HourElement hour={hour} hourKey={index} onSelectHour={onSelectHour} onShowModal={onShowModal} />
+                  <HourElement hour={hour} hourKey={index} onSelectHour={onSelectHour} />
                 )
               })
             }
@@ -53,24 +47,13 @@ export const HoursComponent = () => {
             {
               hoursPM.map((hour, index) => {
                 return (
-                  <HourElement hour={hour} hourKey={index} onSelectHour={onSelectHour} onShowModal={onShowModal} />
+                  <HourElement hour={hour} hourKey={index} onSelectHour={onSelectHour} />
                 )
               })
             }
           </div>
         </div>
       }
-
-      <div className="flex flex-col items-center justify-center h-screen">
-        <ModalCommon isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-          {
-            <div>
-              <div className="modal-header">⚠️</div>
-              <p className='modal-body'>La hora que quiere seleccionar no se encuentra disponible para éste profesional. Por favor, seleccione otra hora.</p>
-            </div>
-          }
-        </ModalCommon>
-      </div>
 
     </>
   )

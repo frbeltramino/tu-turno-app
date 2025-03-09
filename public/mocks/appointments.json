@@ -1,10 +1,10 @@
 {
   "appointments" : [
     {
-      "day": "Jueves",
+      "day": "Lunes",
       "start_hour": "10:00",
       "end_hour": "10:30",
-      "date": "2025-03-06",
+      "date": "2025-03-10",
       "isActive": false,
       "isDisabled": true,
       "id": 1,
@@ -14,10 +14,10 @@
       "professional_name": "Pepe Sanchez"
     },
     {
-      "day": "Viernes",
+      "day": "Lunes",
       "start_hour": "10:30",
       "end_hour": "11:00",
-      "date": "2025-03-06",
+      "date": "2025-03-10",
       "isActive": false,
       "isDisabled": true,
       "id": 2,
@@ -30,7 +30,7 @@
         "day": "Viernes",
         "start_hour": "11:00",
         "end_hour": "11:30",
-        "date": "2025-03-07",
+        "date": "2025-03-11",
         "isActive": false,
         "isDisabled": true,
         "id": 3,
@@ -40,10 +40,10 @@
         "professional_name": "Pepe Sanchez"
       },
       {
-        "day": "Viernes",
+        "day": "Martes",
         "start_hour": "11:30",
         "end_hour": "12:00",
-        "date": "2025-03-07",
+        "date": "2025-03-11",
         "isActive": false,
         "isDisabled": true,
         "id": 4,
@@ -53,10 +53,10 @@
         "professional_name": "Pepe Sanchez"
       },
       {
-        "day": "Lunes",
+        "day": "Martes",
         "start_hour": "09:00",
         "end_hour": "09:40",
-        "date": "2025-03-10",
+        "date": "2025-03-11",
         "isActive": false,
         "isDisabled": true,
         "id": 5,
@@ -66,10 +66,10 @@
         "professional_name": "Ana Gomez"
       },
       {
-        "day": "Lunes",
+        "day": "Martes",
         "start_hour": "09:40",
         "end_hour": "10:20",
-        "date": "2025-03-10",
+        "date": "2025-03-11",
         "isActive": false,
         "isDisabled": true,
         "id": 6,

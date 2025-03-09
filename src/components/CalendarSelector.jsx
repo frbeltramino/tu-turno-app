@@ -16,8 +16,6 @@ export const CalendarSelector = () => {
 
   const { professional} = useContext( ProfessionalsAndServicesContext );
 
-  const [modalOpen, setModalOpen] = useState(false);
-
   const { dates, onSelectDate, calendarLoading } = useContext(DatesAndHoursContext);
 
   const currentDates = dates.slice(
@@ -25,13 +23,10 @@ export const CalendarSelector = () => {
         (currentPage + 1) * datesPerPage
       );
 
-  const onShowModal = () => {
-    setModalOpen(!modalOpen);
-  }
 
   const handleOnSelectDate = (date) => {
     onSelectDate(date, professional);
-    setModalOpen(false);
+   
   }
 
 
@@ -73,7 +68,7 @@ export const CalendarSelector = () => {
 
               currentDates.map((date, index) => {
                 return (
-                  <DateElement dateKey={index} date={date} onSelectDate={handleOnSelectDate} onShowModal={onShowModal} />
+                  <DateElement dateKey={index} date={date} onSelectDate={handleOnSelectDate}/>
                 )
               })
             }
@@ -92,17 +87,6 @@ export const CalendarSelector = () => {
         </div>
       </div>
       }
-
-      <div className="flex flex-col items-center justify-center h-screen">
-        <ModalCommon isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-          {
-            <div>
-              <div className="modal-header">⚠️</div>
-              <p className='modal-body'>La fecha que quiere seleccionar no se encuentra disponible para éste profesional. Por favor, seleccione otra fecha.</p>
-            </div>
-          }
-        </ModalCommon>
-      </div>
 
 
     </>

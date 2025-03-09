@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import '../styles/mainStyles.css'
 
+import Swal from 'sweetalert2';
+import "sweetalert2/dist/sweetalert2.min.css";
 
 
 
 
-export const DateElement = ({ keyDate, date, onSelectDate, onShowModal }) => {
+
+export const DateElement = ({ keyDate, date, onSelectDate }) => {
 
 
   return (
@@ -19,7 +22,7 @@ export const DateElement = ({ keyDate, date, onSelectDate, onShowModal }) => {
             disabled={date.isDisabled}
             onClick={(event) => {
               if (date.isDisabled) {
-                onShowModal();
+                Swal.fire('Fecha no disponible', 'Por favor seleccione otra fecha', 'error');
                 return;
               }
               onSelectDate(date);
