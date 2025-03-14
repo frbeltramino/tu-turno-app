@@ -362,8 +362,6 @@ export const DatesAndHoursProvider = ({ children }) => {
   const onSelectDate = (date, professional) => {
     setOneDayActive(date);
     //getTurnsNotAvailable(date);//llamaria al servicio de traer turnos una vez seleccionados profesional y fecha
-
-
   };
 
   const setOneDayActive = (date) => {

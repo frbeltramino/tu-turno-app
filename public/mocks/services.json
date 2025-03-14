@@ -96,14 +96,14 @@
             {
             "day": "Martes",
             "working_hours": {
-                "start": "12:00",
+                "start": "14:00",
                 "end": "18:00"
               }
             },
             {
               "day": "Jueves",
               "working_hours": {
-                "start": "09:00",
+                "start": "14:00",
                 "end": "18:00"
               }
             }  

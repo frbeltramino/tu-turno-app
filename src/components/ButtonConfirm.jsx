@@ -5,14 +5,16 @@ import { faCircleInfo, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { DatesAndHoursContext } from '../context/DatesAndHoursContext';
 import { ProfessionalsAndServicesContext } from '../context/ProfessionalsAndServicesContext';
 import { capitalize } from '../utils/commonUtilities.js'
+import { AuthContext } from '../context/AuthContext';
 
 
 export const ButtonConfirm = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
 
-   const { getDateSelected, getHourSelected } = useContext(DatesAndHoursContext);
+   const { getDateSelected, getHourSelected, getWorkingDaysProfessional, getArrAMHours, getArrPMHours  } = useContext(DatesAndHoursContext);
    const { getSelectedService, getSelectedProfessional } = useContext(ProfessionalsAndServicesContext);
+   const { handleOnAutenticate} = useContext(AuthContext)
 
    const onSubmitAppointment = () => {
     const inputParams = {
@@ -20,13 +22,17 @@ export const ButtonConfirm = () => {
       serviceId: getSelectedService().id,
       professionalName: getSelectedProfessional().name,
       professionalId: getSelectedProfessional().id,
-      date: getDateSelected().date,
-      hour: getHourSelected().hour,
       userName:"Juan",
       userEmail:"juan@gmail.com",
-      userId:"123456789"
+      userId:"123456789",
+      service: getSelectedService(),
+      professional: getSelectedProfessional(),
+      date: getDateSelected(),
+      hour: getHourSelected()
     }
-    console.log(inputParams);
+    localStorage.setItem("newAppointment", JSON.stringify(inputParams));
+    handleOnAutenticate(true);
+    
   }
 
 
@@ -34,11 +40,12 @@ export const ButtonConfirm = () => {
     <>
       <div div className="col-12 col-md-12" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '16px', marginBottom: '16px' }}>
         <button 
-        className={ getHourSelected().id != null ? 'btn btn-primary' : 'btn btn-secondary'}
+        className={ getHourSelected().id != null ? 'btn btn-primary w-100 w-md-200' : 'btn btn-secondary w-100 w-md-200'}
         disabled={ getHourSelected().id == null }
-        style={{ width: "200px" }} onClick={() => { setModalOpen(true) }}> 
-        <FontAwesomeIcon icon={faShoppingCart} size="1x" color="white" 
-        /> Pedir Turno</button>
+        onClick={() => { setModalOpen(true) }}> 
+        <FontAwesomeIcon icon={faShoppingCart} size="1x" color="white"/>
+        &nbsp;
+        Pedir Turno</button>
       </div>
       <div className="flex flex-col items-center justify-center h-screen">
         <ModalCommon isOpen={modalOpen} onClose={() => setModalOpen(false)}>
@@ -59,9 +66,8 @@ export const ButtonConfirm = () => {
 
               </div> 
 
-              <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <button className="btn btn-secondary" onClick={() => setModalOpen(false)}>Cancelar</button>
-                <button className="btn btn-success" onClick={() => onSubmitAppointment() }>Confirmar</button>
+              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <button className="btn btn-primary" onClick={() => onSubmitAppointment() }>Autenticarme y reservar</button>
               </div>
             </div>
           }
