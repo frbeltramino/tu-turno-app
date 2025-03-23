@@ -408,7 +408,8 @@ export const DatesAndHoursProvider = ({ children }) => {
       resetSelectedDay,
       getDateSelected,
       getHourSelected,
-      getTurnsNotAvailable
+      getTurnsNotAvailable,
+      appointments
     }}>
       {children}
     </DatesAndHoursContext.Provider>

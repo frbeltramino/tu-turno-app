@@ -8,7 +8,7 @@ import { LoaderScreen } from "../components/LoaderScreen";
 
 
 export const AppRouter = () => {
-  const { onAutenticateAction, authStatus, createNewAppointment, loading } = useContext(AuthContext);
+  const { onAutenticateAction, authStatus, createNewAppointment, loading, newAppointmentCreated } = useContext(AuthContext);
 
   return (
     <>
@@ -17,9 +17,9 @@ export const AppRouter = () => {
 
       <Routes>
         {
-          (!onAutenticateAction && authStatus === "not-authenticated") || (createNewAppointment && authStatus === "authenticated") 
+          ( (!onAutenticateAction && authStatus === "not-authenticated") || (createNewAppointment && authStatus === "authenticated") ) && (!newAppointmentCreated)
           ? <Route path="/*" element={<App />} />
-          : authStatus === "not-authenticated" 
+          : (authStatus === "not-authenticated") && (!newAppointmentCreated)
           ? <Route path="/auth/*" element={<LoginPage />} />
           : <Route path="/user/*" element={<UserHome />} />
         }

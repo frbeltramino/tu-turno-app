@@ -14,24 +14,35 @@ export const ButtonConfirm = () => {
 
    const { getDateSelected, getHourSelected, getWorkingDaysProfessional, getArrAMHours, getArrPMHours  } = useContext(DatesAndHoursContext);
    const { getSelectedService, getSelectedProfessional } = useContext(ProfessionalsAndServicesContext);
-   const { handleOnAutenticate} = useContext(AuthContext)
+   const { handleOnAutenticate, authStatus } = useContext(AuthContext)
 
    const onSubmitAppointment = () => {
-    const inputParams = {
-      serviceName: getSelectedService().name,
-      serviceId: getSelectedService().id,
-      professionalName: getSelectedProfessional().name,
-      professionalId: getSelectedProfessional().id,
-      userName:"Juan",
-      userEmail:"juan@gmail.com",
-      userId:"123456789",
-      service: getSelectedService(),
-      professional: getSelectedProfessional(),
-      date: getDateSelected(),
-      hour: getHourSelected()
+    const userData = localStorage.getItem("user")
+    if (authStatus === "authenticated"){
+      const inputParamsUser = {
+        userName: userData.name,
+        userEmail: userData.email,
+        userId: userData._id,
+        userPhone: userData.phone,
+      }
+      console.log("turno reservado");
+      setModalOpen(false);
+      //handleNewAppointmentCreated(true);
+    } else {
+      const inputParams = {
+        serviceName: getSelectedService().name,
+        serviceId: getSelectedService().id,
+        professionalName: getSelectedProfessional().name,
+        professionalId: getSelectedProfessional().id,
+        service: getSelectedService(),
+        professional: getSelectedProfessional(),
+        date: getDateSelected(),
+        hour: getHourSelected()
+      }
+      localStorage.setItem("newAppointment", JSON.stringify(inputParams));
+      handleOnAutenticate(true);
     }
-    localStorage.setItem("newAppointment", JSON.stringify(inputParams));
-    handleOnAutenticate(true);
+   
     
   }
 
@@ -62,12 +73,12 @@ export const ButtonConfirm = () => {
                 <p><strong>Servicio:</strong> { getSelectedService().name}</p>
                 <p><strong>Profesional:</strong> {getSelectedProfessional().name}</p>
                 <p><strong>Fecha:</strong> {getDateSelected().day + " " + getDateSelected().dayNumber + " de " + capitalize(getDateSelected().month)}</p>
-                <p><strong>Hora:</strong> {getHourSelected().hour}</p>
+                <p><strong>Hora:</strong> {getHourSelected().hour + " hs."}</p>
 
               </div> 
 
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <button className="btn btn-primary" onClick={() => onSubmitAppointment() }>Autenticarme y reservar</button>
+                <button className="btn btn-primary" onClick={() => onSubmitAppointment() }>{authStatus === "authenticated" ? "Reservar" : "Autenticarme y reservar"}</button>
               </div>
             </div>
           }

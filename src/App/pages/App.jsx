@@ -1,5 +1,5 @@
 import React from 'react'
-import { Header } from '../../components/header'
+import { Header } from '../../components/Header'
 import { Service } from '../../components/Service'
 import { Professional } from '../../components/Professional'
 import { CalendarSelector } from '../../components/CalendarSelector'
