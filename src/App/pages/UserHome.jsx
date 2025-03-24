@@ -48,7 +48,6 @@ export const UserHome = () => {
   }, [authStatus]); // Se ejecuta cada vez que `authStatus` cambia
 
   const onClickBtnNewAppointment = () => {
-    //handleNewAppointmentCreated(false);
     handleCreateNewAppointment(true);
   }
 
@@ -66,7 +65,7 @@ export const UserHome = () => {
         )}
 
         {/* Lista de Turnos */}
-        <AppointmentList appointments={userAppointments} />
+        <AppointmentList appointments={userAppointments} onDelete={()=>{}} onCreate={ onClickBtnNewAppointment } />
         
       </div>
 

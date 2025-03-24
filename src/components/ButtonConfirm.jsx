@@ -25,11 +25,17 @@ export const ButtonConfirm = () => {
         userId: userData._id,
         userPhone: userData.phone,
       }
+      const inputParams = getAppointmentData();
       console.log("turno reservado");
       setModalOpen(false);
-      //handleNewAppointmentCreated(true);
     } else {
-      const inputParams = {
+      const inputParams = getAppointmentData();
+      localStorage.setItem("newAppointment", JSON.stringify(inputParams));
+      handleOnAutenticate(true);
+    }
+
+    const getAppointmentData = () => {
+      return {
         serviceName: getSelectedService().name,
         serviceId: getSelectedService().id,
         professionalName: getSelectedProfessional().name,
@@ -39,8 +45,6 @@ export const ButtonConfirm = () => {
         date: getDateSelected(),
         hour: getHourSelected()
       }
-      localStorage.setItem("newAppointment", JSON.stringify(inputParams));
-      handleOnAutenticate(true);
     }
    
     

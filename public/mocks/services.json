@@ -9,7 +9,7 @@
       "time_turns": "20",
       "professionals": [
         {
-          "id": 1,
+          "id": "67db1a7cdc5310134bc1afc5",
           "name": "Pepe Sanchez",
           "description": "especialista en cirugía de animales",
           "image": "perro1.jpg",
@@ -45,8 +45,8 @@
             }  
           ],
           "holidays": [
-            "2025-03-14",
-            "2025-03-15"
+            "2025-04-07",
+            "2025-04-15"
           ]
         },
         {

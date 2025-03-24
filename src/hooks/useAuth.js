@@ -47,8 +47,7 @@ export const useAuth = () => {
 
   const startLogout = () => {
     setLoading(true);
-    localStorage.removeItem("token"); // Borra el usuario guardado
-    localStorage.removeItem("user"); // Borra el usuario guardado
+    localStorage.clear();
     setAuthStatus("not-authenticated"); // Cambia el estado de autenticación
     setOnAutenticateAction(false); // Cambia el estado de autenticación
     setNewAppointmentCreated(false); // Cambia el estado de autenticación
@@ -224,6 +223,22 @@ export const useAuth = () => {
 
   };
 
+  const checkAuthToken = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) { startLogout() }
+    try {
+      const { data } = await tuTurnoApi.get("/auth/renew");
+      console.log(data);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      setUser(data.user);
+    } catch (error) {
+      console.log(error);
+      localStorage.clear();
+      startLogout();
+    }
+  };
+
 
   return {
     startLogin,
@@ -231,7 +246,8 @@ export const useAuth = () => {
     startLogout,
     showLogin,
     handleGenerateToken,
-    handleGenerateTokenRegister
+    handleGenerateTokenRegister,
+    checkAuthToken
   }
   
 }

@@ -10,5 +10,13 @@ const tuTurnoApi = axios.create({
 
 
 //TODO: CONFIGURAR INTERCEPTORES
+tuTurnoApi.interceptors.request.use(function (config) {
+
+  config.headers = {
+    ...config.headers,
+    'x-token': localStorage.getItem("token")
+  }
+  return config;
+});
 
 export default tuTurnoApi;

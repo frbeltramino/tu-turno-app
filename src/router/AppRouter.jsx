@@ -1,14 +1,21 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router"
 import { App } from "../App"
 import { UserHome } from "../App";
 import { LoginPage } from "../auth";
 import { AuthContext } from "../context/AuthContext";
 import { LoaderScreen } from "../components/LoaderScreen";
+import { useAuth } from '../hooks/useAuth';
+import { use } from "react";
 
 
 export const AppRouter = () => {
   const { onAutenticateAction, authStatus, createNewAppointment, loading, newAppointmentCreated } = useContext(AuthContext);
+  const { checkAuthToken } = useAuth();
+ 
+  useEffect(() => {
+    checkAuthToken();
+  }, []);
 
   return (
     <>

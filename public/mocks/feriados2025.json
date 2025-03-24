@@ -1,21 +1,9 @@
 {
   "feriados": [
-    { "fecha": "2025-01-01", "nombre": "Año Nuevo", "tipo": "inamovible" },
-    { "fecha": "2025-03-03", "nombre": "Carnaval", "tipo": "inamovible" },
-    { "fecha": "2025-03-24", "nombre": "Carnaval", "tipo": "inamovible" },
-    { "fecha": "2025-03-24", "nombre": "Día de la Memoria por la Verdad y la Justicia", "tipo": "inamovible" },
-    { "fecha": "2025-04-02", "nombre": "Día del Veterano y de los Caídos en la Guerra de Malvinas", "tipo": "inamovible" },
-    { "fecha": "2025-04-17", "nombre": "Jueves Santo", "tipo": "turístico" },
-    { "fecha": "2025-04-18", "nombre": "Viernes Santo", "tipo": "inamovible" },
-    { "fecha": "2025-05-01", "nombre": "Día del Trabajador", "tipo": "inamovible" },
-    { "fecha": "2025-05-25", "nombre": "Día de la Revolución de Mayo", "tipo": "inamovible" },
-    { "fecha": "2025-06-17", "nombre": "Paso a la Inmortalidad del General Martín Miguel de Güemes", "tipo": "trasladable" },
-    { "fecha": "2025-06-20", "nombre": "Paso a la Inmortalidad del General Manuel Belgrano", "tipo": "inamovible" },
-    { "fecha": "2025-07-09", "nombre": "Día de la Independencia", "tipo": "inamovible" },
-    { "fecha": "2025-08-17", "nombre": "Paso a la Inmortalidad del General José de San Martín", "tipo": "trasladable" },
-    { "fecha": "2025-10-12", "nombre": "Día del Respeto a la Diversidad Cultural", "tipo": "trasladable" },
-    { "fecha": "2025-11-20", "nombre": "Día de la Soberanía Nacional", "tipo": "trasladable" },
-    { "fecha": "2025-12-08", "nombre": "Día de la Inmaculada Concepción de María", "tipo": "inamovible" },
-    { "fecha": "2025-12-25", "nombre": "Navidad", "tipo": "inamovible" }
+    { "date": "2025-03-24T00:00:00.000Z", "description": "Año Nuevo", "type": "inamovible" },
+    { "date": "2025-03-26T00:00:00.000Z", "description": "Carnaval", "type": "inamovible" },
+    { "date": "2025-03-28T00:00:00.000Z", "description": "Carnaval", "type": "inamovible" },
+    { "date": "2025-03-31T00:00:00.000Z", "description": "Día de la Memoria por la Verdad y la Justicia", "type": "inamovible" },
+    { "date": "2025-04-05T00:00:00.000Z", "description": "Día del Veterano y de los Caídos en la Guerra de Malvinas", "type": "inamovible" }
   ]
 }

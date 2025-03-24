@@ -49,10 +49,10 @@ export const Header = () => {
 
           <div className="modal-footer d-flex justify-content-center gap-3 mt-4">
             <button type="button" className="btn btn-outline-secondary px-4" onClick={() => setModalOpen(false)}>
-              ❌ Cancelar
+              Cancelar
             </button>
             <button type="button" className="btn btn-danger px-4" onClick={handleLogout}>
-              🔴 Sí, salir
+              Sí, salir
             </button>
           </div>
         </ModalCommon>

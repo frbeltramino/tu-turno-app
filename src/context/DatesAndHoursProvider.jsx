@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { DatesAndHoursContext } from './DatesAndHoursContext'
 import { faBullseye } from '@fortawesome/free-solid-svg-icons';
 import { turnConstants } from '../turnConstants';
+import { splitDate } from '../utils/commonUtilities.js';
 
 export const DatesAndHoursProvider = ({ children }) => {
 
@@ -37,7 +38,7 @@ export const DatesAndHoursProvider = ({ children }) => {
     fetch("/mocks/appointments.json") // Llama al JSON en public/
       .then((response) => response.json())
       .then((data) => {
-        setAppointments(data.appointments);
+        setAppointments(data.turnos);
 
       })
       .catch((error) => {
@@ -119,7 +120,8 @@ export const DatesAndHoursProvider = ({ children }) => {
         break;
     }
     for (let i = 0; i < appointments.length; i++) {//Busco los turnos ya ocupados para la fecha seleccionada
-      if (appointments[i].id_professional == professional.id && appointments[i].date == date.date) {
+      let formatedAppointementDate = splitDate(appointments[i].date, "T", 0);
+      if (appointments[i].professional_id == professional.id && formatedAppointementDate == date.date) {
         arrAppointments.push(appointments[i]);
       }
     }
@@ -148,24 +150,19 @@ export const DatesAndHoursProvider = ({ children }) => {
     let isDisabled = false;
     if (arrAppointments.length > 0) {
       turnConstants().turns.duration[timeTurnsConstant].forEach((hour, index) => {
-        if (hour >= profWorkingHours.start && hour <= profWorkingHours.end) {
-          if (hour >= profWorkingHours.start && hour <= profWorkingHours.end) {//entre las horas de inicio y fin del profesional
-            for (let j = 0; j < arrAppointments.length; j++) {// tengo que ver si esa hora esta ocupada
-              if (hour >= arrAppointments[j].start_hour && hour <= arrAppointments[j].end_hour) {// Si la hora esta entre las horas de inicio y de fin de un turno ocupado - se desahabilita
-                isDisabled = true;
-              } else {
-                isDisabled = false;
-              }
-            }
-            arrHours.push({
-              hour: hour,
-              isActive: false,
-              isDisabled: isDisabled,
-              id: index,
-            });
-          }
+        if (hour >= profWorkingHours.start && hour <= profWorkingHours.end) { // Solo dentro del horario permitido
+          isDisabled = arrAppointments.some(appointment => 
+            hour == appointment.start_hour && hour <= appointment.end_hour
+          );
+      
+          arrHours.push({
+            hour: hour,
+            isActive: false,
+            isDisabled: isDisabled,
+            id: index,
+          });
         }
-      })
+      });
     } else {
       turnConstants().turns.duration[timeTurnsConstant].forEach((hour, index) => {
         if (hour >= profWorkingHours.start && hour <= profWorkingHours.end) {//Si no hay turnos ya ocupados, se agrega el turno
@@ -287,12 +284,13 @@ export const DatesAndHoursProvider = ({ children }) => {
     const arrDatesWithHolidays = [];
     for (let i = 0; i < dates.length; i++) {//recorro los dias laborales del profesional
       for (let j = 0; j < feriados.length; j++) { // recorro los feriados
-        if (dates[i].date === feriados[j].fecha) {
+        let feriadoFormated = splitDate(feriados[j].date, "T", 0);
+        if (dates[i].date === feriadoFormated) {
           dates[i].isHoliday = true;
           dates[i].isDisabled = true;
         }
-        arrDatesWithHolidays.push(dates[i]);
       }
+      arrDatesWithHolidays.push(dates[i]);
     }
     setWorkingDates(arrDatesWithHolidays);
   }

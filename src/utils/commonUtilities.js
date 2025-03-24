@@ -11,3 +11,7 @@ export function formatDate(dateString) {
     year: "numeric",
   });
 }
+
+export function splitDate(dateString, separator, part) {
+  return dateString.split(separator,2)[part];
+}

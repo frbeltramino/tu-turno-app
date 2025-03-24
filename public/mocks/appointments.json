@@ -1,89 +1,52 @@
 {
-  "appointments" : [
-    {
-      "day": "Lunes",
-      "start_hour": "10:00",
-      "end_hour": "10:30",
-      "date": "2025-03-10",
-      "isActive": false,
-      "isDisabled": true,
-      "id": 1,
-      "client_name": "pepe pepe",
-      "professional_id": 1,
-      "duration": "30",
-      "professional_name": "Pepe Sanchez",
-      "service_name": "Cirugía"
-    },
-    {
-      "day": "Lunes",
-      "start_hour": "10:30",
-      "end_hour": "11:00",
-      "date": "2025-03-10",
-      "isActive": false,
-      "isDisabled": true,
-      "id": 2,
-      "client_name": "pepe pepe",
-      "professional_id": 1,
-      "duration": "30",
-      "professional_name": "Pepe Sanchez",
-      "service_name": "Cirugía"
-    },
-      {
-        "day": "Viernes",
-        "start_hour": "11:00",
-        "end_hour": "11:30",
-        "date": "2025-03-11",
-        "isActive": false,
-        "isDisabled": true,
-        "id": 3,
-        "client_name": "pepe pepe",
-        "professional_id": 1,
-        "duration": "30",
-        "professional_name": "Pepe Sanchez",
-        "service_name": "Cirugía"
+  "turnos": [
+        {
+            "_id": "67db1a7cdc5310134bc1afc7",
+            "day": "Miércoles",
+            "start_hour": "09:00",
+            "end_hour": "09:30",
+            "date": "2025-03-25T00:00:00.000Z",
+            "client_name": "Juan Pérez",
+            "client_phone": "123456789",
+            "client_email": "Pepe Sanchez",
+            "professional_id": "67db1a7cdc5310134bc1afc5",
+            "duration": "60",
+            "professional_name": "Pepe Sanchez",
+            "client_id": "67db1a7cdc5310134bc1afc6",
+            "service_name": "Consulta médica",
+            "__v": 0
+        },
+        {
+          "_id": "67db1a7cdc5310134bc1afc7",
+          "day": "Miércoles",
+          "start_hour": "10:00",
+          "end_hour": "10:30",
+          "date": "2025-03-25T00:00:00.000Z",
+          "client_name": "Juan Pérez",
+          "client_phone": "123456789",
+          "client_email": "Pepe Sanchez",
+          "professional_id": "67db1a7cdc5310134bc1afc5",
+          "duration": "60",
+          "professional_name": "Pepe Sanchez",
+          "client_id": "67db1a7cdc5310134bc1afc6",
+          "service_name": "Consulta médica",
+          "__v": 0
       },
-      {
-        "day": "Martes",
-        "start_hour": "11:30",
-        "end_hour": "12:00",
-        "date": "2025-03-11",
-        "isActive": false,
-        "isDisabled": true,
-        "id": 4,
-        "client_name": "pepe pepe",
-        "professional_id": 1,
-        "duration": "30",
-        "professional_name": "Pepe Sanchez",
-        "service_name": "Cirugía"
-      },
-      {
-        "day": "Martes",
-        "start_hour": "09:00",
-        "end_hour": "09:40",
-        "date": "2025-03-11",
-        "isActive": false,
-        "isDisabled": true,
-        "id": 5,
-       "client_name": "pepe pepe",
-        "professional_id": 2,
-        "duration": "40",
-        "professional_name": "Ana Gomez",
-        "service_name": "Cirugía"
-      },
-      {
-        "day": "Martes",
-        "start_hour": "09:40",
-        "end_hour": "10:20",
-        "date": "2025-03-11",
-        "isActive": false,
-        "isDisabled": true,
-        "id": 6,
-        "client_name": "pepe pepe",
-        "professional_id": 2,
-        "duration": "40",
-        "professional_name": "Ana Gomez",
-        "service_name": "Cirugía"
-      }
-    
-  ]
+        {
+            "_id": "67db1c83a9112fdd3cd4975f",
+            "day": "Martes",
+            "start_hour": "10:30",
+            "end_hour": "11:00",
+            "date": "2025-03-25T00:00:00.000Z",
+            "client_name": "pepe sape",
+            "client_phone": "2213131123",
+            "client_email": "frbeltra2@gmail.com",
+            "professional_id": "2",
+            "duration": "30",
+            "professional_name": "Pepe Sanchez",
+            "client_id": "67d9e53d1cb0d6ccd1a7b3f7",
+            "service_name": "Cirugía",
+            "__v": 0
+        }
+    ]
 }

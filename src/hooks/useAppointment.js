@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 
-export const useTurn = () => {
+export const useAppointment = () => {
 
 
-  const [turn, setTurn] = useState({});
-  const [totalDays, setTotalDays] = useState();
+  const [appointment, setAppointment] = useState({});
   const [day, setDay] = useState({});
   const [hour, setHour] = useState({});
   const [category, setCategory] = useState({});
   const [professional, setProfessional] = useState({});
 
-  const handleTurn = (turn) => {
-    setTurn(turn);
+  const handleAppointment = (turn) => {
+    setAppointment(turn);
   };
 
   const handleDay = (day) => {
@@ -30,17 +29,20 @@ export const useTurn = () => {
     setProfessional(professional);
   };
 
-  const handleTotalDays = (totalDays) => {
-    setTotalDays(totalDays);
-  };  
+  const getAppointmentData = async () => {
+    try {
+      const response = await tuTurnoApi.get("/appointments/");
+      const data = response.data;
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  useEffect(() => {
-    handleTotalDays(totalDays);
-  }, [totalDays]);
 
   return({
-    turn, 
-    handleTurn,
+    appointment, 
+    handleAppointment,
     day,
     handleDay,
     hour,
@@ -48,8 +50,6 @@ export const useTurn = () => {
     category,
     handleCategory,
     professional,
-    handleProfessional,
-    totalDays,
-    handleTotalDays
+    handleProfessional
   });
 };

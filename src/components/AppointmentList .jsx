@@ -10,7 +10,7 @@ export const AppointmentList = ({ appointments, onDelete, onCreate }) => {
       <div className="d-flex justify-content-between align-items-center mb-2">
         <h5 className="m-0">📅 Mis Turnos</h5>
         <button className="btn btn-success btn-sm" onClick={onCreate}>
-          <i className="bi bi-plus"></i> Nuevo Turno
+          <i className="bi bi-plus"></i>&nbsp;<span>Nuevo Turno</span>
         </button>
       </div>
 
