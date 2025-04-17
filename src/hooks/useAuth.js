@@ -96,7 +96,7 @@ export const useAuth = () => {
           
         }
         if (data.ok) {
-          //sendEmail(otp, email);
+          sendEmail(otp, email);
           setOtp(otp);
           setIsLoginCodeSent(true);
         }
@@ -197,7 +197,7 @@ export const useAuth = () => {
         
       }
       if (data.ok) {
-        //sendEmail(otp, email);
+        sendEmail(otp, email);
         setIsRegisterCodeSent(true);
         setRegisterOtp(otp);
       }
