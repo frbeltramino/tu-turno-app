@@ -188,3 +188,25 @@ p {
     transform: rotate(360deg);
   }
 }
+
+.bg-cancelled {
+  background-color: #9A364C !important;
+}
+
+.bg-completed {
+  background-color: #55B56F
+}
+
+.btn-new-appointment {
+  background-color: #EED78C;
+  color: #000000; /* O blanco si preferís: #ffffff */
+  border: none;
+  padding: 5px 5px;
+  border-radius: 1rem
+}
+
+.btn-new-appointment:hover,
+.btn-new-appointment:focus {
+  background-color: #e5cb7d; /* Un poco más oscuro para hover */
+  color: #000000;
+}

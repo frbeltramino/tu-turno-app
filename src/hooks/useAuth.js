@@ -3,14 +3,19 @@ import { tuTurnoApi } from "../api";
 import { AuthContext } from "../context/AuthContext";
 import emailjs from '@emailjs/browser';
 import { getEnvVariables } from "../helpers/getEnvVariables";
+import { useAppointment } from "./useAppointment";
+import { AppointmentsContext } from "../context/AppointmentsContext";
+import Swal from 'sweetalert2';
 
 
 
 export const useAuth = () => {
   
-  const { error, setError, setUser, setAuthStatus, setOnAutenticateAction, setLoading, setNewAppointmentCreated, email, setEmail, otp, setOtp, loading, loadingGenerateCode, registerOtp, registerEmail, setLoadingGenerateCode, showToast, setLoadingRegisterCode, setIsRegisterCodeSent, setIsLoginCodeSent, setRegisterOtp } = useContext(AuthContext);
+  const { error, setError, setUser, setAuthStatus, setOnAutenticateAction, setLoading, email, setEmail, otp, setOtp, loading, loadingGenerateCode, registerOtp, registerEmail, setLoadingGenerateCode, showToast, setLoadingRegisterCode, setIsRegisterCodeSent, setIsLoginCodeSent, setRegisterOtp, handleShowUserSettings } = useContext(AuthContext);
   
   const { VITE_SERVICE_ID, VITE_TEMPLATE_ID, VITE_PUBLIC_KEY } = getEnvVariables();
+
+  const { handleCreateNewAppointment } = useContext(AppointmentsContext);
 
   // FUNCIONES PARA LOGIN DE USUARIO
   
@@ -50,7 +55,8 @@ export const useAuth = () => {
     localStorage.clear();
     setAuthStatus("not-authenticated"); // Cambia el estado de autenticación
     setOnAutenticateAction(false); // Cambia el estado de autenticación
-    setNewAppointmentCreated(false); // Cambia el estado de autenticación
+    handleCreateNewAppointment(false);//Flag para mostrar la pantalla de crear turno estando autenticado
+    handleShowUserSettings(false);
     setIsRegisterCodeSent(false);
     setIsLoginCodeSent(false);
     setLoading(false);
@@ -240,6 +246,26 @@ export const useAuth = () => {
   };
 
 
+  const updateUserData = async (userData) => {
+    const { _id, name, phone } = userData;
+  
+    try {
+      const response = await tuTurnoApi.put(`/auth/userUpdate/${_id}`, { name, phone });
+  
+      const data = response.data;
+      
+      showToast("Datos actualizados correctamente ✅", "success");
+      setError("");
+      localStorage.setItem("user", JSON.stringify(data.user));
+  
+    } catch (error) {
+      console.error(error);
+      setError(error.response?.data?.msg || "Error al actualizar el usuario");
+      Swal.fire('Error al actualizar el usuario', error.response?.data?.msg, 'error');
+    }
+  };
+
+
   return {
     startLogin,
     startRegister,
@@ -247,7 +273,8 @@ export const useAuth = () => {
     showLogin,
     handleGenerateToken,
     handleGenerateTokenRegister,
-    checkAuthToken
+    checkAuthToken,
+    updateUserData
   }
   
 }

@@ -17,7 +17,6 @@ export const CalendarSelector = () => {
 
   const handleOnSelectDate = (date) => {
     onSelectDate(date, professional);
-   
   }
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -54,7 +53,7 @@ export const CalendarSelector = () => {
         </div>
       </div>
       {
-       professional.id == null ? // si no se selecciona ninguna fecha se muestra el mensaje de no hay fecha seleccionada
+       professional._id == null ? // si no se selecciona ninguna fecha se muestra el mensaje de no hay fecha seleccionada
         <div className='row col-12 col-md-12' style={{ justifyContent: 'center' }}>
           <div className='col-10 col-md-8 mt-5 offset-sm-1' > 
             <div className="alert alert-warning text-center">

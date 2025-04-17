@@ -5,25 +5,36 @@ import { AuthContext } from '../../context/AuthContext';
 import { ProfessionalsAndServicesContext } from '../../context/ProfessionalsAndServicesContext';
 import { capitalize } from '../../utils/commonUtilities.js'
 import { AppointmentList } from '../../components/AppointmentList .jsx';
-import { ToastContext } from '../../context/ToastContext.jsx';
+import { useAppointment } from '../../hooks/useAppointment.js';
+import { AppointmentsContext } from '../../context/AppointmentsContext';
+import { formatDate } from '../../utils/commonUtilities.js';
 
 export const UserHome = () => {
 
-  const { onAutenticateAction, authStatus, createNewAppointment, handleCreateNewAppointment, userAppointments, getUserAppointments } = useContext(AuthContext);
+  const { onAutenticateAction, authStatus } = useContext(AuthContext);
+  const { userAppointments, getUserAppointments, createNewAppointment, collectNewAppointmentData, cancelAppointment } = useAppointment();
   const [modalOpen, setModalOpen] = useState(false);
   const [newAppointmentData, setNewAppointmentData] = useState(null);
   const [userData, setUserData] = useState(null);
-  const { showToast } = useContext(ToastContext);
+  const { handleCreateNewAppointment } = useContext(AppointmentsContext);
+  const [appointmentToCancel, setAppointmentToCancel] = useState(null);
+  const [cancelModalOpen, setCancelModalOpen] = useState(false);
 
    
   
    const { handleOnAutenticate} = useContext(AuthContext)
 
    const onSubmitAppointment = () => {
-    console.log("Reservar turno");
-    showToast("El turno se reservó correctamente.", "success");
-    localStorage.removeItem("newAppointment");
+    const userData = JSON.parse(localStorage.getItem("user"));
+    const inputParamsUser = {
+      userName: userData.name,
+      userEmail: userData.email,
+      userId: userData._id,
+      userPhone: userData.phone,
+    }
+    collectNewAppointmentData(inputParamsUser, newAppointmentData);
     setModalOpen(false);
+
   }
 
   const onCloseAppointmentModal = () => {
@@ -41,8 +52,9 @@ export const UserHome = () => {
         setModalOpen(true); // Abre el modal
       }
       if (userStoredData){
-        setUserData(JSON.parse(userStoredData));
-        getUserAppointments(userStoredData);
+        const userData = JSON.parse(localStorage.getItem("user"));
+        setUserData(userData);
+        getUserAppointments(userData._id);
       }
     }
   }, [authStatus]); // Se ejecuta cada vez que `authStatus` cambia
@@ -50,6 +62,19 @@ export const UserHome = () => {
   const onClickBtnNewAppointment = () => {
     handleCreateNewAppointment(true);
   }
+
+  const handleDeleteAppointment = (appointment) => {
+    setAppointmentToCancel(appointment);
+    setCancelModalOpen(true);
+  };
+
+  const confirmCancelAppointment = () => {
+    if (appointmentToCancel) {
+      cancelAppointment(appointmentToCancel._id);
+      setCancelModalOpen(false);
+      setAppointmentToCancel(null);
+    }
+  };
 
 
   return (
@@ -65,7 +90,7 @@ export const UserHome = () => {
         )}
 
         {/* Lista de Turnos */}
-        <AppointmentList appointments={userAppointments} onDelete={()=>{}} onCreate={ onClickBtnNewAppointment } />
+        <AppointmentList appointments={userAppointments} onCancel={(appointment) => handleDeleteAppointment(appointment)} onCreate={ onClickBtnNewAppointment } />
         
       </div>
 
@@ -93,6 +118,35 @@ export const UserHome = () => {
               </div>
             </div>
           }
+        </ModalCommon>
+        <ModalCommon isOpen={cancelModalOpen} onClose={() => setCancelModalOpen(false)}>
+          {appointmentToCancel && (
+            <div>
+              <h5 className="fw-bold text-center mb-3">¿Querés cancelar este turno?</h5>
+
+              <div className="mb-2">
+                <h6 className="card-title mb-1 fs-6">{appointmentToCancel.service_name}</h6>
+                <p className="mb-1 small">
+                  <strong>👨‍⚕️ Profesional:</strong> {appointmentToCancel.professional_name}
+                </p>
+                <p className="mb-1 small">
+                  <strong>📆 Fecha:</strong> {appointmentToCancel.day} {formatDate(appointmentToCancel.date)}
+                </p>
+                <p className="mb-1 small">
+                  <strong>⏰ Hora:</strong> {appointmentToCancel.start_hour} hs.
+                </p>
+              </div>
+
+              <div className="modal-footer d-flex justify-content-center gap-3 mt-4">
+                <button className="btn btn-outline-secondary px-4" onClick={() => setCancelModalOpen(false)}>
+                  Cancelar
+                </button>
+                <button className="btn btn-danger px-4" onClick={confirmCancelAppointment}>
+                  Sí, cancelar turno
+                </button>
+              </div>
+            </div>
+          )}
         </ModalCommon>
       </div>
     </>

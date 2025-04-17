@@ -21,6 +21,7 @@ export const App = () => {
 
         <ProfessionalsAndServicesProvider>
           <DatesAndHoursProvider>
+            
            
             <Header />
             <Service />
@@ -31,7 +32,7 @@ export const App = () => {
 
             <ButtonConfirm />
             <LoaderScreen/>
-
+  
           </DatesAndHoursProvider>
         </ProfessionalsAndServicesProvider>
 

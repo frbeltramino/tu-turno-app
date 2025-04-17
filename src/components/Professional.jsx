@@ -16,10 +16,10 @@ export const Professional = () => {
   const { setProfessionalWorkingDays, resetSelectedDay, getTurnsNotAvailable } = useContext(DatesAndHoursContext);
 
   const slectOneProfessional = (professionalParam) => {
-    if (professionalParam.id !== professional.id) {
+    if (professionalParam._id !== professional._id) {
       resetSelectedDay();;
       setProfessional(professionalParam);
-      setProfessionalWorkingDays(professionalParam, selectedService.time_turns);
+      setProfessionalWorkingDays(professionalParam, selectedService.time_turns, selectedService);
       getTurnsNotAvailable(professionalParam);
 
     }
@@ -59,9 +59,9 @@ export const Professional = () => {
             <div className="d-flex align-items-center">
               <FontAwesomeIcon icon={faUser} size="2x" className="text-black" />
               <p className="mb-0 ms-2">
-                {selectedService.id == null
+                {selectedService._id == null
                   ? "-"
-                  : professional.id == null
+                  : professional._id == null
                     ? "Seleccione un profesional"
                     : professional.name}
               </p>
@@ -81,7 +81,7 @@ export const Professional = () => {
       <div className="flex flex-col items-center justify-center h-screen">
         <ModalCommon isOpen={modalOpen} onClose={() => setModalOpen(false)}>
           {
-            selectedService.id == null ?
+            selectedService._id == null ?
               <div className="d-flex flex-column align-items-center justify-content-center">
                 <FontAwesomeIcon icon={faWarning} size="2x" color="#fcdb03" />
                 <h3 className="text-xl font-bold"> No hay seleccionado ningún servicio</h3>

@@ -6,6 +6,7 @@ import { DatesAndHoursContext } from '../context/DatesAndHoursContext';
 import { ProfessionalsAndServicesContext } from '../context/ProfessionalsAndServicesContext';
 import { capitalize } from '../utils/commonUtilities.js'
 import { AuthContext } from '../context/AuthContext';
+import { useAppointment } from '../hooks/useAppointment.js';
 
 
 export const ButtonConfirm = () => {
@@ -15,37 +16,54 @@ export const ButtonConfirm = () => {
    const { getDateSelected, getHourSelected, getWorkingDaysProfessional, getArrAMHours, getArrPMHours  } = useContext(DatesAndHoursContext);
    const { getSelectedService, getSelectedProfessional } = useContext(ProfessionalsAndServicesContext);
    const { handleOnAutenticate, authStatus } = useContext(AuthContext)
+   const { createNewAppointment, collectNewAppointmentData } = useAppointment();
+
+   const getAppointmentData = () => {
+    return {
+      serviceName: getSelectedService().name,
+      serviceId: getSelectedService().id,
+      professionalName: getSelectedProfessional().name,
+      professionalId: getSelectedProfessional().id,
+      service: getSelectedService(),
+      professional: getSelectedProfessional(),
+      date: getDateSelected(),
+      hour: getHourSelected()
+    }
+  }
+  const calculateEndHour = (startHour, durationInMinutes) => {
+    const [hours, minutes] = startHour.split(':').map(Number);
+    const startDate = new Date(0, 0, 0, hours, minutes);
+    
+    const endDate = new Date(startDate.getTime() + durationInMinutes * 60000);
+    
+    const endHours = endDate.getHours().toString().padStart(2, '0');
+    const endMinutes = endDate.getMinutes().toString().padStart(2, '0');
+  
+    return `${endHours}:${endMinutes}`;
+  };
 
    const onSubmitAppointment = () => {
-    const userData = localStorage.getItem("user")
+    
     if (authStatus === "authenticated"){
+      const userData = JSON.parse(localStorage.getItem("user"));
       const inputParamsUser = {
         userName: userData.name,
         userEmail: userData.email,
         userId: userData._id,
         userPhone: userData.phone,
       }
-      const inputParams = getAppointmentData();
-      console.log("turno reservado");
+      const newAppointmentData = getAppointmentData();
+
+      collectNewAppointmentData(inputParamsUser, newAppointmentData);
+
       setModalOpen(false);
     } else {
-      const inputParams = getAppointmentData();
-      localStorage.setItem("newAppointment", JSON.stringify(inputParams));
+      const newAppointmentData = getAppointmentData();
+      localStorage.setItem("newAppointment", JSON.stringify(newAppointmentData));
       handleOnAutenticate(true);
     }
 
-    const getAppointmentData = () => {
-      return {
-        serviceName: getSelectedService().name,
-        serviceId: getSelectedService().id,
-        professionalName: getSelectedProfessional().name,
-        professionalId: getSelectedProfessional().id,
-        service: getSelectedService(),
-        professional: getSelectedProfessional(),
-        date: getDateSelected(),
-        hour: getHourSelected()
-      }
-    }
+    
    
     
   }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ProfessionalsAndServicesContext } from './ProfessionalsAndServicesContext'
+import { tuTurnoApi } from '../api';
 
 export const ProfessionalsAndServicesProvider = ({ children }) => {
   const [selectedService, setSelectedService] = useState({});
@@ -8,14 +9,34 @@ export const ProfessionalsAndServicesProvider = ({ children }) => {
   const [professional, setProfessional] = useState({});
   const [error, setError] = useState({});
 
-  const getServices = () => {
+  /*const getServices = () => {
     fetch("/mocks/services.json") // Llama al JSON en public/
       .then((response) => response.json())
       .then((data) => handleData(data))
       .catch((error) => setError(error));
-  };
+  };*/
 
-  const handleData = (data) => {
+  const getServices = async () => {
+    
+    try {
+      const response = await tuTurnoApi.get("/servicesAndProfessionals");
+      
+  
+      const data = response.data;
+      if (!data.ok) {
+        throw new Error(data.message || "Error en la consulta de servicios");
+      }
+      setServices(data.services);
+      setError(false);
+    } catch (error) {
+      if (error.response) {
+        setError(error.response.data?.message || "Error en la consulta de servicios");
+      } else {
+        setError("No se pudo conectar con el servidor");
+      }
+    }
+  };
+ /* const handleData = (data) => {
     if (data.services){
       setServices(data.services);
       setError(false);
@@ -23,7 +44,7 @@ export const ProfessionalsAndServicesProvider = ({ children }) => {
       setError(data.error)
     }
     
-  } 
+  } */
 
   useEffect(() => {
     if (services.length === 0) {
@@ -35,7 +56,7 @@ export const ProfessionalsAndServicesProvider = ({ children }) => {
 
   const slectOneService = (serviceParam) => {
     setProfessional({});
-    if (serviceParam.id !== selectedService.id) {
+    if (serviceParam._id !== selectedService._id) {
       setSelectedService(serviceParam);
       setProfessionalsDefault(serviceParam.professionals);
     }

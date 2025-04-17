@@ -3,6 +3,7 @@ import { DatesAndHoursContext } from './DatesAndHoursContext'
 import { faBullseye } from '@fortawesome/free-solid-svg-icons';
 import { turnConstants } from '../turnConstants';
 import { splitDate } from '../utils/commonUtilities.js';
+import tuTurnoApi from '../api/tuTurnoApi.js';
 
 export const DatesAndHoursProvider = ({ children }) => {
 
@@ -20,6 +21,7 @@ export const DatesAndHoursProvider = ({ children }) => {
   const [appointments, setAppointments] = useState([]);
   const [professional, setProfessional] = useState({});
   const [feriados, setFeriados] = useState([]);
+  const [selectedServiceDuration, setSelectedServiceDuration] = useState();
 
   // const setDatesAndHours = (datesAndHours) => {
   //   setDates(datesAndHours);
@@ -33,7 +35,7 @@ export const DatesAndHoursProvider = ({ children }) => {
     }
   }, [professional]);
 
-  const getTurnsNotAvailable = (professional) => {
+ /* const getTurnsNotAvailable = (professional) => {
     setProfessional(professional);
     fetch("/mocks/appointments.json") // Llama al JSON en public/
       .then((response) => response.json())
@@ -44,24 +46,22 @@ export const DatesAndHoursProvider = ({ children }) => {
       .catch((error) => {
         console.error("Error cargando turnos cargados:", error)
       });
-  }
+  }*/
 
-  const divideHours = () => {
-    if (hours.length > 0) {
-      const hoursAM = [];
-      const hoursPM = [];
-      hours.forEach((hour) => {
-        if (hour.hour <= "13:30") {
-          hoursAM.push(hour);
-        } else {
-          hoursPM.push(hour);
-        }
-      });
-      setHoursAM(hoursAM);
-      setHoursPM(hoursPM);
+  const getTurnsNotAvailable = async (professional) => {
+    try {
+      setProfessional(professional);
+  
+      const response = await tuTurnoApi.get("/appointments/activeAppointments");
+  
+      if (response.data.ok) {
+        setAppointments(response.data.turnos); // Asumimos que la API devuelve { ok: true, turnos: [...] }
+      } else {
+        console.error("Error en la respuesta de turnos:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error al obtener turnos desde la API:", error);
     }
-
-
   };
 
   const onSelectHour = (hourSelected) => {
@@ -121,7 +121,7 @@ export const DatesAndHoursProvider = ({ children }) => {
     }
     for (let i = 0; i < appointments.length; i++) {//Busco los turnos ya ocupados para la fecha seleccionada
       let formatedAppointementDate = splitDate(appointments[i].date, "T", 0);
-      if (appointments[i].professional_id == professional.id && formatedAppointementDate == date.date) {
+      if (appointments[i].professional_id == professional._id && formatedAppointementDate == date.date) {
         arrAppointments.push(appointments[i]);
       }
     }
@@ -147,36 +147,69 @@ export const DatesAndHoursProvider = ({ children }) => {
 
   const verifyAppointmentsHours = (timeTurnsConstant, profWorkingHours, professional, date, arrAppointments) => {
     const arrHours = [];
-    let isDisabled = false;
-    if (arrAppointments.length > 0) {
-      turnConstants().turns.duration[timeTurnsConstant].forEach((hour, index) => {
-        if (hour >= profWorkingHours.start && hour <= profWorkingHours.end) { // Solo dentro del horario permitido
-          isDisabled = arrAppointments.some(appointment => 
-            hour == appointment.start_hour && hour <= appointment.end_hour
-          );
-      
-          arrHours.push({
-            hour: hour,
-            isActive: false,
-            isDisabled: isDisabled,
-            id: index,
-          });
+    const availableHours = turnConstants().turns.duration[timeTurnsConstant];
+    const isWithinRange = (hour, range) => range && hour >= range.start && hour < range.end;
+    const markHour = (hour, isDisabled, id) => {
+      arrHours.push({
+        hour,
+        isActive: false,
+        isDisabled,
+        id,
+      });
+    };
+    let j = 0;
+    let i = 0;
+    if (arrAppointments.length > 0) {// si hay turnos dados para este profesional
+      while (availableHours.length > j) {//mientrtas haya horarios disponibles
+        if (isWithinRange(availableHours[j], profWorkingHours.am) || isWithinRange(availableHours[j], profWorkingHours.pm)) {// se agregan si corresponden al rango horario del profesional
+
+          if (arrAppointments[i] && availableHours[j] === arrAppointments[i].start_hour) {// si el horario coincide con un turno dado se marca como ocupado
+
+            if (arrAppointments[i].duration <= selectedServiceDuration) {// si el turno dado es menor o igual que el turno que se esta listando se ofusca un solo turno.
+
+              const isDisabled = availableHours[j] === arrAppointments[i].start_hour && availableHours[j] <= arrAppointments[i].end_hour;
+              markHour(availableHours[j], isDisabled, j);
+              j++;// paso al siguiente horario disponible
+              i++;// paso al siguiente turno dado.
+            } else {// si el turno dado contempla mas tiempo que los turnos que se estan listando, se ocupan los turnos necesarios hasta completar el rango de horario. ej turno dado de 1hr pero se listan horarios de 30min - serian 2 turnos ocupados.
+              let remainingDuration = arrAppointments[i].duration;
+
+              while (remainingDuration > 0 && j < availableHours.length) {
+                const hour = availableHours[j];
+                markHour(hour, true, j);
+                j++;
+                remainingDuration -= selectedServiceDuration;
+              }
+              i++;
+            }
+
+          } else {
+            markHour(availableHours[j], false, j);
+            j++;
+          }
+        } else {
+          j++;
+        }
+
+      };
+    } else {
+
+      availableHours.forEach((hour, index) => {
+        const isInAM = isWithinRange(hour, profWorkingHours.am);
+        const isInPM = isWithinRange(hour, profWorkingHours.pm);
+
+        if (isInAM || isInPM) {
+          markHour(hour, false, index);
         }
       });
-    } else {
-      turnConstants().turns.duration[timeTurnsConstant].forEach((hour, index) => {
-        if (hour >= profWorkingHours.start && hour <= profWorkingHours.end) {//Si no hay turnos ya ocupados, se agrega el turno
-          arrHours.push({
-            hour: hour,
-            isActive: false,
-            isDisabled: false,
-            id: index,
-          });
-        }
-      })
     }
+
+  
     return arrHours;
-  }
+  };
+
+
+
 
 
 
@@ -184,6 +217,13 @@ export const DatesAndHoursProvider = ({ children }) => {
 
   const showCalendarLoading = (isLoading) => {
     setCalendarLoading(isLoading);
+  };
+
+  const getLocalDateString = (date) => {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
 
   const getDates = () => {
@@ -200,8 +240,9 @@ export const DatesAndHoursProvider = ({ children }) => {
       const isActive = false;
       const isDisabled = true;
       const id = i + 1;
+      const localDate = getLocalDateString(date);
       dates.push({
-        date: date.toISOString().split('T')[0],
+        date: localDate,
         isActive,
         isDisabled,
         id,
@@ -222,11 +263,13 @@ export const DatesAndHoursProvider = ({ children }) => {
     }
   }, []);
 
-  const getFeriados = () => {
-    fetch("/mocks/feriados2025.json") // Llama al JSON en public/
-      .then((response) => response.json())
-      .then((data) => setFeriados(data.feriados))
-      .catch((error) => console.error("Error cargando datos:", error));
+  const getFeriados = async () => {
+    try {
+      const { data } = await tuTurnoApi.get("/holidays/");
+      setFeriados(data.holidays);
+    } catch (error) {
+      console.error("Error cargando feriados", error);
+    }
   };
 
   useEffect(() => {
@@ -241,8 +284,9 @@ export const DatesAndHoursProvider = ({ children }) => {
 
   }, [selectedDay]);
 
-  const setProfessionalWorkingDays = (professionaParam, timeTurns) => {
+  const setProfessionalWorkingDays = (professionaParam, timeTurns, selectedService) => {
     setProfessional(professionaParam);
+    setSelectedServiceDuration(selectedService.time_turns);
     const professionalWorkingDays = professionaParam.working_days;
     const professionalWorkingOcuppedTurns = professionaParam.ocupped_turns;
     const professionalHolidays = professionaParam.holidays;
@@ -268,15 +312,15 @@ export const DatesAndHoursProvider = ({ children }) => {
     setProfessionalWD(arrWorkingDays, professionalHolidays);
   }
 
-  const setProfessionalWD = (workingDates, professionalHolidays) => {
-    setDates(workingDates);
+  const setProfessionalWD = (workingDatesParam, professionalHolidays) => {
+    setDates(workingDatesParam);
     if (feriados.length > 0) {
       setHolidayDates();
     } else {
-      setWorkingDates(workingDates);
+      setWorkingDates(workingDatesParam);
     }
     if (professionalHolidays.length > 0) {
-      setHolidaysProfessional(workingDates, professionalHolidays);
+      setHolidaysProfessional(workingDatesParam, professionalHolidays);
     }
   };
 
@@ -371,7 +415,6 @@ export const DatesAndHoursProvider = ({ children }) => {
     setSelectedDay(date);
     setProfessionalWH(date);
     //setHours(date.hours);
-    // divideHours();
     const newDates = dates;
     for (let i = 0; i < newDates.length; i++) {
       if (newDates[i].id === selectedDay.id) {
