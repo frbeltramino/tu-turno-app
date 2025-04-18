@@ -21,6 +21,8 @@ const registerFormFields = {
 export const LoginPage = () => {
 
     const [showRegister, setShowRegister] = useState(false);
+    const [haveAcode, setHaveAcode] = useState(false);
+
 
     const { loading, error, loadingGenerateCode, loadingRegisterCode, isRegisterCodeSent, isLoginCodeSent } = useContext(AuthContext);
 
@@ -54,6 +56,10 @@ export const LoginPage = () => {
         handleGenerateTokenRegister(registerEmail);
     }
 
+    const handleHaveAcode = () => {
+        setHaveAcode(!haveAcode);
+    }
+
     return (
         <div className="container mt-4">
             <div className="row justify-content-center">
@@ -77,7 +83,7 @@ export const LoginPage = () => {
 
                                 <div className="d-grid gap-2">
                                     {/* Botón de "Enviar código" antes de recibir el código */}
-                                    {!isLoginCodeSent && (
+                                    {!isLoginCodeSent && !haveAcode && (
                                         <button className="btn btn-primary btn-sm" onClick={generateToken} disabled={loadingGenerateCode}>
                                             {loadingGenerateCode ? (
                                                 <>
@@ -88,7 +94,7 @@ export const LoginPage = () => {
                                     )}
 
                                     {/* Botón de "Login" solo si el código ya fue enviado */}
-                                    {isLoginCodeSent && (
+                                    {(isLoginCodeSent || haveAcode) && (
                                         <>
                                             <div className="mb-2 position-relative">
                                                 <input
@@ -113,12 +119,21 @@ export const LoginPage = () => {
                                 </div>
                             </form>
 
+                             {/* Botón de tengo un codigo de verificacion */}
+                             <div className="text-center mt-3">
+                                <button className="btn btn-link btn-sm" onClick={() => handleHaveAcode()}>
+                                    {!haveAcode ? "Ya tengo un código de verificación" : "No tengo un código de verificación"}
+                                </button>
+                            </div>
+
                             {/* Botón para mostrar el registro */}
                             <div className="text-center mt-3">
                                 <button className="btn btn-link btn-sm" onClick={() => setShowRegister(!showRegister)}>
                                     {showRegister ? "← Volver al Login" : "¿No tienes cuenta? Registrarse"}
                                 </button>
                             </div>
+
+                            
                         </div>
                     </div>
                 </div>
