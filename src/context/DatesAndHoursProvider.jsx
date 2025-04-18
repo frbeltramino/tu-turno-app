@@ -125,8 +125,8 @@ export const DatesAndHoursProvider = ({ children }) => {
         arrAppointments.push(appointments[i]);
       }
     }
-
-    arrHours = verifyAppointmentsHours(timeTurnsConstant, profWorkingHours, professional, date, arrAppointments);
+    let turnosOrdenados = ordenarTurnosPorHora(arrAppointments);
+    arrHours = verifyAppointmentsHours(timeTurnsConstant, profWorkingHours, professional, date, turnosOrdenados);
 
     if (arrHours.length > 0) {
       const hoursAM = [];
@@ -359,11 +359,6 @@ export const DatesAndHoursProvider = ({ children }) => {
     }, 1000);
   }, [workingDates]);
 
-
-
-
-
-
   const searchAndModifyDates = (date, professionalWorkingDay, timeTurns, professionalWorkingOcuppedTurns) => {
     date.isActive = false;
     date.isDisabled = false;
@@ -425,6 +420,14 @@ export const DatesAndHoursProvider = ({ children }) => {
 
 
   };
+
+  function ordenarTurnosPorHora(turnos) {
+    return turnos.sort((a, b) => {
+      const horaA = a.start_hour;
+      const horaB = b.start_hour;
+      return horaA.localeCompare(horaB);
+    });
+  }
 
 
   return (

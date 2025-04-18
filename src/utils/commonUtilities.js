@@ -1,15 +1,17 @@
+import dayjs from 'dayjs';
+import 'dayjs/locale/es';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.locale('es');
+dayjs.extend(utc);
+
+export function formatDate(dateString) {
+  return dayjs.utc(dateString).format('D [de] MMMM [de] YYYY');
+}
+
 
 export function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-}
-
-export function formatDate(dateString) {
-  const date = new Date(dateString);
-  return date.toLocaleDateString("es-ES", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
 }
 
 export function splitDate(dateString, separator, part) {
