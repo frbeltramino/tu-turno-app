@@ -88,8 +88,8 @@ export const Header = () => {
             </div>
           ) : (
             <button className="btn btn-sm btn-outline-success ms-auto" onClick={showLogin}>
-               <i className="fas fa-sign-in-alt"></i>&nbsp;
-               <span>Ingresar</span>
+              <i className="fas fa-sign-in-alt"></i>&nbsp;
+              <span className="d-none d-sm-inline">Ingresar</span>
             </button>
           )}
         </div>
