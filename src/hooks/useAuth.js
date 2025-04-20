@@ -212,19 +212,15 @@ export const useAuth = () => {
     setRegisterOtp("");
     try {
       const response = await tuTurnoApi.delete("/auth/deleteRegisterOtp", { 
-        data: { email }  // <-- Enviamos el email en el body
+        data: { email }
       });
-
-
-      const data = await response.json();
-
-
+  
+      const data = response.data;
+      console.log("OTP eliminado:");
+  
     } catch (error) {
-      console.log(error.response.data?.message  || "Error al borrar el otp de registro");
-    } finally {
-      //setLoading(false);
+      console.log(error.response?.data?.message || "Error al borrar el otp de registro");
     }
-
   };
 
   const checkAuthToken = async () => {
