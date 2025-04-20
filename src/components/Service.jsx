@@ -45,11 +45,18 @@ export const Service = () => {
           className="card col-10 offset-sm-1 col-md-8 d-flex justify-content-start align-items-center p-3"
           style={{ cursor: 'pointer' }}
         >
-          <div className="d-flex align-items-center w-100">
-            <FontAwesomeIcon icon={faDog} size="2x" className="text-black" />
-            <p className="mb-0 ms-2">
-              {selectedService.name ? selectedService.name : 'Elegí un servicio'}
-            </p>
+          <div className="d-flex justify-content-between align-items-center w-100">
+            <div className="d-flex align-items-center">
+              <FontAwesomeIcon icon={faDog} size="2x" className="text-black" />
+              <p className="mb-0 ms-2">
+                {selectedService.name ? selectedService.name : 'Elegí un servicio'}
+              </p>
+            </div>
+            {selectedService.time_turns && (
+              <small className="text-secondary" style={{ fontSize: '12px' }}>
+                {selectedService.time_turns} min
+              </small>
+            )}
           </div>
         </div>
       </div>

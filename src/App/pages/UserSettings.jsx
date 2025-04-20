@@ -12,7 +12,7 @@ export const UserSettings = () => {
   const [fieldToEdit, setFieldToEdit] = useState(null);
   const [tempValue, setTempValue] = useState("");
 
-  const { updateUserData} = useAuth();
+  const { updateUserData, settingsLoading} = useAuth();
 
   const openModal = (field) => {
     setFieldToEdit(field);
@@ -80,7 +80,9 @@ export const UserSettings = () => {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary w-100">Guardar cambios</button>
+          <button type="submit" className="btn btn-primary w-100" disabled={settingsLoading}>{settingsLoading ? (<>
+            <span className="spinner-border spinner-border-sm me-2"></span> Guardando...
+          </>) : "Guardar cambios"}</button>
         </form>
       </div>
 
@@ -101,9 +103,9 @@ export const UserSettings = () => {
           <button className="btn btn-secondary" onClick={() => setModalOpen(false)}>
             Cancelar
           </button>
-          <button className="btn btn-primary" onClick={handleSaveField}>
-            Guardar
-          </button>
+            <button className="btn btn-primary" onClick={handleSaveField}>
+              Aceptar
+            </button>
         </div>
       </div>
     </ModalCommon>

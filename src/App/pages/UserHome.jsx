@@ -12,7 +12,7 @@ import { formatDate } from '../../utils/commonUtilities.js';
 export const UserHome = () => {
 
   const { onAutenticateAction, authStatus } = useContext(AuthContext);
-  const { userAppointments, getUserAppointments, createNewAppointment, collectNewAppointmentData, cancelAppointment } = useAppointment();
+  const { userAppointments, getUserAppointments, createNewAppointment, collectNewAppointmentData, cancelAppointment, userAppointmentsLoading } = useAppointment();
   const [modalOpen, setModalOpen] = useState(false);
   const [newAppointmentData, setNewAppointmentData] = useState(null);
   const [userData, setUserData] = useState(null);
@@ -22,7 +22,7 @@ export const UserHome = () => {
 
    
   
-   const { handleOnAutenticate} = useContext(AuthContext)
+   const { handleOnAutenticate} = useContext(AuthContext);
 
    const onSubmitAppointment = () => {
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -90,7 +90,7 @@ export const UserHome = () => {
         )}
 
         {/* Lista de Turnos */}
-        <AppointmentList appointments={userAppointments} onCancel={(appointment) => handleDeleteAppointment(appointment)} onCreate={ onClickBtnNewAppointment } />
+        <AppointmentList appointments={userAppointments} onCancel={(appointment) => handleDeleteAppointment(appointment)} onCreate={ onClickBtnNewAppointment } loading={userAppointmentsLoading} />
         
       </div>
 

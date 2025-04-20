@@ -17,6 +17,8 @@ export const useAuth = () => {
 
   const { handleCreateNewAppointment } = useContext(AppointmentsContext);
 
+  const [settingsLoading, setSettingsLoading] = useState(false);
+
   // FUNCIONES PARA LOGIN DE USUARIO
   
   const startLogin = async( {email, password}) => {
@@ -78,8 +80,6 @@ export const useAuth = () => {
   
       const generatedOtp = generateOtp();
       //setEmail(email);
-  
-      console.log(`🔹 OTP generado: ${generatedOtp}, Email: ${email}`);
   
       // 📌 Llamar directamente a la función en lugar de usar useEffect
       await enviarOTPAlServidor(generatedOtp, email);
@@ -180,8 +180,6 @@ export const useAuth = () => {
     const generatedOtp = generateOtp();
     setEmail(email);
 
-    console.log(`🔹 OTP generado: ${generatedOtp}, Email: ${email}`);
-
     // 📌 Llamar directamente a la función en lugar de usar useEffect
     await enviarOTPRegisterAlServidor(generatedOtp, email);
   };
@@ -248,6 +246,7 @@ export const useAuth = () => {
 
   const updateUserData = async (userData) => {
     const { _id, name, phone } = userData;
+    setSettingsLoading(true);
   
     try {
       const response = await tuTurnoApi.put(`/auth/userUpdate/${_id}`, { name, phone });
@@ -258,10 +257,12 @@ export const useAuth = () => {
       setError("");
       localStorage.setItem("user", JSON.stringify(data.user));
   
+      setSettingsLoading(false);
     } catch (error) {
       console.error(error);
       setError(error.response?.data?.msg || "Error al actualizar el usuario");
       Swal.fire('Error al actualizar el usuario', error.response?.data?.msg, 'error');
+      setSettingsLoading(false);
     }
   };
 
@@ -274,7 +275,8 @@ export const useAuth = () => {
     handleGenerateToken,
     handleGenerateTokenRegister,
     checkAuthToken,
-    updateUserData
+    updateUserData,
+    settingsLoading
   }
   
 }

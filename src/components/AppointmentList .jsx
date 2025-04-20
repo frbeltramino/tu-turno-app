@@ -3,8 +3,8 @@ import { formatDate } from '../utils/commonUtilities.js';
 import { AuthContext } from '../context/AuthContext';
 import { useAppointment } from '../hooks/useAppointment.js';
 
-export const AppointmentList = ({ appointments, onCancel, onCreate }) => {
-  const { userAppointmentsLoading } = useAppointment();
+export const AppointmentList = ({ appointments, onCancel, onCreate, loading }) => {
+  
 
   return (
     <div className="container mt-3">
@@ -16,12 +16,12 @@ export const AppointmentList = ({ appointments, onCancel, onCreate }) => {
       </div>
 
       {/* Loader cuando está cargando */}
-      {userAppointmentsLoading ? (
-        <div className="text-center">
-          <div className="spinner-border text-primary" role="status">
+      {loading ? (
+        <div className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: '200px' }}>
+          <div className="spinner-border text-success" role="status">
             <span className="visually-hidden">Cargando...</span>
           </div>
-          <p className="fs-6">Cargando turnos...</p>
+          <p className="fs-6 mt-3">Cargando turnos...</p>
         </div>
       ) : (
         <div className="row">

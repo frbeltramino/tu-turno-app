@@ -35,18 +35,6 @@ export const DatesAndHoursProvider = ({ children }) => {
     }
   }, [professional]);
 
- /* const getTurnsNotAvailable = (professional) => {
-    setProfessional(professional);
-    fetch("/mocks/appointments.json") // Llama al JSON en public/
-      .then((response) => response.json())
-      .then((data) => {
-        setAppointments(data.turnos);
-
-      })
-      .catch((error) => {
-        console.error("Error cargando turnos cargados:", error)
-      });
-  }*/
 
   const getTurnsNotAvailable = async (professional) => {
     try {
@@ -97,22 +85,22 @@ export const DatesAndHoursProvider = ({ children }) => {
     showHoursLoading(true);
 
     switch (timeTurns) {
-      case timeTurns === "10":
+      case 10:
         timeTurnsConstant = "10_MINUTES_TURNS";
         break;
-      case timeTurns === "20":
+      case 20:
         timeTurnsConstant = "20_MINUTES_TURNS";
         break;
-      case timeTurns === "30":
+      case 30:
         timeTurnsConstant = "30_MINUTES_TURNS";
         break;
-      case timeTurns === "40":
+      case 40:
         timeTurnsConstant = "40_MINUTES_TURNS";
         break;
-      case timeTurns === "50":
+      case 50:
         timeTurnsConstant = "50_MINUTES_TURNS";
         break;
-      case timeTurns === "60":
+      case 60:
         timeTurnsConstant = "60_MINUTES_TURNS";
         break;
       default:
