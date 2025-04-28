@@ -78,6 +78,8 @@ export const LoginPage = () => {
                                         onChange={onLoginImputChange}
                                         value={loginEmail}
                                         required
+                                        autoCapitalize="none"
+                                        autoCorrect="off"  
                                     />
                                 </div>
 
@@ -165,6 +167,8 @@ export const LoginPage = () => {
                                             value={registerEmail}
                                             onChange={onRegisterImputChange}
                                             required
+                                            autoCapitalize="none"
+                                            autoCorrect="off"   
                                         />
                                     </div>
                                     <div className="mb-2">
