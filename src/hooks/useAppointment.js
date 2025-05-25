@@ -3,6 +3,7 @@ import { tuTurnoApi } from "../api";
 import { ToastContext } from '../context/ToastContext.jsx';
 import Swal from 'sweetalert2';
 import { AppointmentsContext } from "../context/AppointmentsContext.jsx";
+import { AuthContext } from "../context/AuthContext.jsx";
 
 export const useAppointment = () => {
 
@@ -19,6 +20,7 @@ export const useAppointment = () => {
   
 
   const { handleCreateNewAppointment } = useContext(AppointmentsContext);
+  const {loading, setLoading} = useContext(AuthContext);
  
 
 
@@ -69,7 +71,9 @@ export const useAppointment = () => {
       "duration": appointmentData.service.time_turns,
       "professional_name":appointmentData.professional.name,
       "client_id": userData.userId,
-      "service_name": appointmentData.service.name
+      "service_name": appointmentData.service.name,
+      "service_id": appointmentData.service._id,
+      "is_virtual": appointmentData.service.is_virtual
     }
     createNewAppointment(params);//llamar al servicio de crear un nuevo turno
   }
@@ -91,7 +95,7 @@ export const useAppointment = () => {
   };
 
   const createNewAppointment = async (appointment) => {
-   
+    setLoading(true);
     try {
       const response = await tuTurnoApi.post("/appointments", appointment);
       const data = response.data;
@@ -100,18 +104,18 @@ export const useAppointment = () => {
       getUserAppointments(data.turno.client_id);
       localStorage.removeItem("newAppointment");
       handleCreateNewAppointment(false);//reseteo flag de crear nuevo turno para mostrar la home del user
+      setLoading(false);
     } catch (error) {
       localStorage.removeItem("newAppointment");
       setErrorAppointment(error.response.data?.message || "Error al crear turno");
       Swal.fire('Error al crear turno', error.response.data?.message, 'error');
+      setLoading(false);
     }
   };
 
   const cancelAppointment = async (appointmentId) => {
     try {
-      const response = await tuTurnoApi.put(`/appointments/cancel/${appointmentId}`, {
-        is_cancelled: true
-      });
+      const response = await tuTurnoApi.put(`/appointments/cancelByClient/${appointmentId}`);
       const data = response.data;
       // Actualizar lista local tras cancelación
       showToast("El turno se canceló correctamente.", "success");
@@ -122,9 +126,59 @@ export const useAppointment = () => {
         )
       );
     } catch (error) {
-      console.error("Error al cancelar el turno:", error);
+      Swal.fire('Error al cancelar turno', error.response.data?.message, 'error');
     }
   };
+
+
+  const verifyAppointmentsHours = (timeTurnsConstant, profWorkingHours, professional, date, arrAppointments) => {
+    const arrHours = [];
+    const availableHours = turnConstants().turns.duration[timeTurnsConstant];
+    const isWithinRange = (hour, range) => range && hour >= range.start && hour < range.end;
+    const markHour = (hour, isDisabled, id) => {
+      arrHours.push({
+        hour,
+        isActive: false,
+        isDisabled,
+        id,
+      });
+    };
+    let j = 0;
+    let i = 0;
+    if (arrAppointments.length > 0) {// si hay turnos dados para este profesional
+      for (const appt of arrAppointments) {
+        const apptStartHour = appt.start_hour;
+        const apptEndHour = appt.end_hour;
+
+        for (let i = 0; i < availableHours.length; i++) {//recorro los turnos que se listan en la aplicacion
+          if (isWithinRange(hour, profWorkingHours.am) || isWithinRange(hour, profWorkingHours.pm)) {
+            const avStartHour = availableHours[i];
+            const avEndHour = availableHours[i + 1];
+            const overlaps = 
+              ( avStartHour >= apptStartHour && avEndHour < apptEndHour ) ||
+              ( avEndHour > apptStartHour && avEndHour <= apptEndHour ) ||
+              ( avStartHour <= apptStartHour && avEndHour >= apptEndHour );
+
+            if (overlaps) {
+              markHour(availableHours[i], true, true, i);
+              i++;
+            }
+          }
+        };
+      }
+    } else {
+       availableHours.forEach((hour, index) => {
+        const isInAM = isWithinRange(hour, profWorkingHours.am);
+        const isInPM = isWithinRange(hour, profWorkingHours.pm);
+
+        if (isInAM || isInPM) {
+          markHour(hour, false, index);
+        }
+      });
+    }
+
+  }
+
 
 
 

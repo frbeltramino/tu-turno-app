@@ -151,6 +151,7 @@ export const DatesAndHoursProvider = ({ children }) => {
       while (availableHours.length > j) {//mientrtas haya horarios disponibles
         if (isWithinRange(availableHours[j], profWorkingHours.am) || isWithinRange(availableHours[j], profWorkingHours.pm)) {// se agregan si corresponden al rango horario del profesional
 
+          
           if (arrAppointments[i] && availableHours[j] === arrAppointments[i].start_hour) {// si el horario coincide con un turno dado se marca como ocupado
 
             if (arrAppointments[i].duration <= selectedServiceDuration) {// si el turno dado es menor o igual que el turno que se esta listando se ofusca un solo turno.
@@ -159,7 +160,8 @@ export const DatesAndHoursProvider = ({ children }) => {
               markHour(availableHours[j], isDisabled, j);
               j++;// paso al siguiente horario disponible
               i++;// paso al siguiente turno dado.
-            } else {// si el turno dado contempla mas tiempo que los turnos que se estan listando, se ocupan los turnos necesarios hasta completar el rango de horario. ej turno dado de 1hr pero se listan horarios de 30min - serian 2 turnos ocupados.
+            } 
+            else {// si el turno dado contempla mas tiempo que los turnos que se estan listando, se ocupan los turnos necesarios hasta completar el rango de horario. ej turno dado de 1hr pero se listan horarios de 30min - serian 2 turnos ocupados.
               let remainingDuration = arrAppointments[i].duration;
 
               while (remainingDuration > 0 && j < availableHours.length) {
@@ -171,7 +173,10 @@ export const DatesAndHoursProvider = ({ children }) => {
               i++;
             }
 
-          } else {
+          } else if (arrAppointments[i] && arrAppointments[i].start_hour > availableHours[j] && arrAppointments[i].end_hour <= availableHours[j+1]){
+              markHour(availableHours[j], false, j);
+              j++;
+            } else {
             markHour(availableHours[j], false, j);
             j++;
           }
