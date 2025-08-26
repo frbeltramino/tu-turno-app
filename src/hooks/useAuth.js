@@ -97,7 +97,7 @@ export const useAuth = () => {
           
         }
         if (data.ok) {
-          // sendEmail(otp, email);
+          sendEmail(otp, email);
           setOtp(otp);
           setIsLoginCodeSent(true);
         }
@@ -110,7 +110,7 @@ export const useAuth = () => {
       }
     };
 
-   /*const sendEmail = async (passcode, emailParam) => {
+   const sendEmail = async (passcode, emailParam) => {
     try {
       await emailjs.send(
         import.meta.env.VITE_SERVICE_ID,
@@ -123,7 +123,7 @@ export const useAuth = () => {
       showToast(t("i18n.auth.006"), "error");
       deleteOTP(emailParam);
     }
-  };*/
+  };
 
     
   const deleteOTP = async (email) => {
@@ -194,7 +194,7 @@ export const useAuth = () => {
         
       }
       if (data.ok) {
-        //sendEmail(otp, email);
+        sendEmail(otp, email);
         setIsRegisterCodeSent(true);
         setRegisterOtp(otp);
       }
