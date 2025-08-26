@@ -6,6 +6,8 @@ import { ProfessionalCardComponent } from './ProfessionalCardComponent';
 import { ProfessionalsAndServicesContext } from '../context/ProfessionalsAndServicesContext';
 import { DatesAndHoursContext } from '../context/DatesAndHoursContext';
 import { ModalCommon } from './ModalCommon';
+import { useTranslation } from "react-i18next";
+import PersonIcon from '@mui/icons-material/Person';
 
 export const Professional = () => {
 
@@ -14,6 +16,8 @@ export const Professional = () => {
   const { selectedService, professional, setProfessional, professionals } = useContext(ProfessionalsAndServicesContext);
 
   const { setProfessionalWorkingDays, resetSelectedDay, getTurnsNotAvailable } = useContext(DatesAndHoursContext);
+
+  const { t } = useTranslation();
 
   const slectOneProfessional = (professionalParam) => {
     if (professionalParam._id !== professional._id) {
@@ -36,7 +40,7 @@ export const Professional = () => {
     <>
       <div className='row col-12 col-md-12' style={{ justifyContent: 'center' }}>
         <div className='col-10 offset-sm-1 col-md-8 mt-5' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h3>Profesional elegido</h3>
+          <h3>{ t("i18n.professionals.001") }</h3>
 
           <div
             className='row'
@@ -57,12 +61,13 @@ export const Professional = () => {
 
             {/* Ícono y Texto */}
             <div className="d-flex align-items-center">
-              <FontAwesomeIcon icon={faUser} size="2x" className="text-black" />
+              {/* <FontAwesomeIcon icon={faUser} size="2x" className="text-black" /> */}
+              <PersonIcon style={{ fontSize: 40, color: "black" }} />
               <p className="mb-0 ms-2">
                 {selectedService._id == null
                   ? "-"
                   : professional._id == null
-                    ? "Seleccione un profesional"
+                    ? t("i18n.professionals.002")
                     : professional.name}
               </p>
             </div>
@@ -70,7 +75,7 @@ export const Professional = () => {
             {/* Precio */}
             <div>
               <small className="text-secondary" style={{ fontSize: '12px' }}>
-                Precio a definir
+                {  t("i18n.professionals.003") }
               </small>
             </div>
 
@@ -84,11 +89,11 @@ export const Professional = () => {
             selectedService._id == null ?
               <div className="d-flex flex-column align-items-center justify-content-center">
                 <FontAwesomeIcon icon={faWarning} size="2x" color="#fcdb03" />
-                <h3 className="text-xl font-bold"> No hay seleccionado ningún servicio</h3>
+                <h3 className="text-xl font-bold"> {  t("i18n.appointments.047") }</h3>
               </div>
               :
               <div>
-                <h3 className="text-xl font-bold">Elegí el profesional</h3>
+                <h3 className="text-xl font-bold"> { t("i18n.professionals.004") }</h3>
                 {
                   professionals.map((professional, index) => {
                     return (

@@ -6,12 +6,15 @@ import { faChevronRight, faChevronLeft, faAngleDoubleLeft, faAngleDoubleRight } 
 import { LoadingMessage } from './LoadingMessage';
 import { ProfessionalsAndServicesContext } from '../context/ProfessionalsAndServicesContext';
 import { ModalCommon } from './ModalCommon';
+import { useTranslation } from "react-i18next";
 
 export const CalendarSelector = () => {
 
   const { professional} = useContext( ProfessionalsAndServicesContext );
 
   const { dates, onSelectDate, calendarLoading } = useContext(DatesAndHoursContext);
+
+  const { t } = useTranslation();
 
     
 
@@ -49,7 +52,7 @@ export const CalendarSelector = () => {
 
       <div className='row col-12 col-md-12' style={{ justifyContent: 'center' }}>
         <div className="col-10 col-md-8 offset-sm-1 mt-5">
-          <h3>Elegir fecha y horario</h3>
+          <h3>{ t("i18n.appointments.034") }</h3>
         </div>
       </div>
       {
@@ -57,7 +60,7 @@ export const CalendarSelector = () => {
         <div className='row col-12 col-md-12' style={{ justifyContent: 'center' }}>
           <div className='col-10 col-md-8 mt-5 offset-sm-1' > 
             <div className="alert alert-warning text-center">
-              ⚠️ <strong>No hay profesional seleccionado</strong>.
+              ⚠️ <strong>{ t("i18n.appointments.035") }</strong>.
             </div>
           </div>
         </div>

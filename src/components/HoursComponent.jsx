@@ -4,19 +4,21 @@ import { useDateAndHours } from '../hooks/useDateAndHours';
 import { DatesAndHoursContext } from '../context/DatesAndHoursContext';
 import { LoadingMessage } from './LoadingMessage';
 import { ModalCommon } from './ModalCommon';
+import { useTranslation } from "react-i18next";
 
 
 export const HoursComponent = () => {
 
 
 const { hours, hoursAM, hoursPM, onSelectHour, hoursLoading } = useContext(DatesAndHoursContext);
+const { t } = useTranslation();
 
 
   return (
     <>
       <div className="row justify-content-center col-12 col-md-12">
         <div className="col-10 col-md-8 mt-5 offset-sm-1 d-flex justify-content-between align-items-center">
-          <h3>Horarios disponibles</h3>
+          <h3>{  t("i18n.appointments.045") }</h3>
         </div>
       </div>
 
@@ -25,7 +27,7 @@ const { hours, hoursAM, hoursPM, onSelectHour, hoursLoading } = useContext(Dates
         <div className="row justify-content-center col-12 col-md-12">
           <div className="col-10 col-md-8 mt-5 offset-sm-1">
             <div className="alert alert-warning text-center">
-              ⚠️ <strong>No hay fecha seleccionada</strong>.
+              ⚠️ <strong>{ t("i18n.appointments.046") }</strong>.
             </div>
           </div>
         </div>

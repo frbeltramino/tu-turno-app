@@ -1,5 +1,6 @@
 import { faChevronCircleLeft, faChevronCircleRight, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import PersonIcon from '@mui/icons-material/Person';
 import React from 'react'
 
 export const ProfessionalCardComponent = ({ professional, onSelectionProfessional }) => {
@@ -13,7 +14,9 @@ export const ProfessionalCardComponent = ({ professional, onSelectionProfessiona
       
       {/* Ícono y Nombre */}
       <div className="d-flex align-items-center">
-        <FontAwesomeIcon icon={faUser} size="2x" className="text-black" />
+        {/* <FontAwesomeIcon icon={faUser} size="2x" className="text-black" /> */}
+        {/* <img src= "/profile3D.png" alt="service" className="ms-2" style={{ width: '50px', height: '50px' }} /> */}
+        <PersonIcon style={{ fontSize: 40, color: "black" }} />
         <p className="mb-0 ms-2">{professional.name}</p>
       </div>
   

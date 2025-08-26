@@ -1,6 +1,8 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 export const LoadingMessage = () => {
+  const { t } = useTranslation();
   return (
     <div className="container">
     <div className="row justify-content-center">
@@ -11,7 +13,7 @@ export const LoadingMessage = () => {
         >
           <div className="d-flex align-items-center">
             <div className="spinner-border text-success me-2" role="status"></div>
-            <strong>Cargando datos...</strong>
+            <strong>{ t("i18n.common.001") }</strong>
           </div>
         </section>
       </div>

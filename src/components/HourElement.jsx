@@ -1,7 +1,9 @@
 import Swal from 'sweetalert2';
 import "sweetalert2/dist/sweetalert2.min.css";
+import { useTranslation } from "react-i18next";
 
 export const HourElement = ({ hour, hourKey, onSelectHour }) => {
+  const { t } = useTranslation();
   const className = hour.isActive ? 'btn btn-primary' : hour.isDisabled ? 'btn btn-secondary' : 'btn btn-success';
   return (
     <div>
@@ -12,7 +14,7 @@ export const HourElement = ({ hour, hourKey, onSelectHour }) => {
             style={ {  marginLeft: '10px', marginTop: '5px'} }
             onClick={() => {
               if (hour.isDisabled) {
-                Swal.fire('Hora no disponible', 'Por favor seleccione otra hora', 'error');
+                Swal.fire( t("i18n.appointments.043"), t("i18n.appointments.044"), "error");
                 return;
               }
               onSelectHour(hour)

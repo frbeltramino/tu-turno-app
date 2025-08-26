@@ -6,6 +6,8 @@ import { ServiceCardComponent } from './ServiceCardComponent';
 import { ProfessionalsAndServicesContext } from '../context/ProfessionalsAndServicesContext';
 import { DatesAndHoursContext } from '../context/DatesAndHoursContext';
 import { ModalCommon } from './ModalCommon';
+import { useTranslation } from "react-i18next";
+import RoomServiceIcon from '@mui/icons-material/RoomService';
 
 export const Service = () => {
 
@@ -14,6 +16,8 @@ export const Service = () => {
   const { services, selectedService, slectOneService, error } = useContext(ProfessionalsAndServicesContext);
 
   const { resetWorkingHours } = useContext(DatesAndHoursContext);
+
+  const { t } = useTranslation();
 
  
   const handleSelectionService = (serviceParam) => {
@@ -26,7 +30,7 @@ export const Service = () => {
     <>
       <div className='row col-12 col-md-12' style={{ justifyContent: 'center' }}>
         <div className='col-10 offset-sm-1  col-md-8 mt-3' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h3>Servicio elegido</h3>
+          <h3>{  t("i18n.appointments.048") }</h3>
           <div
             onClick={() => setModalOpen(true)}
             style={{ cursor: 'pointer' }}
@@ -47,9 +51,9 @@ export const Service = () => {
         >
           <div className="d-flex justify-content-between align-items-center w-100">
             <div className="d-flex align-items-center">
-              <FontAwesomeIcon icon={faDog} size="2x" className="text-black" />
+              <RoomServiceIcon style={{ fontSize: 40, color: "black" }} />
               <p className="mb-0 ms-2">
-                {selectedService.name ? selectedService.name : 'Elegí un servicio'}
+                {selectedService.name ? selectedService.name : t("i18n.services.002")}
               </p>
             </div>
             {selectedService.time_turns && (
@@ -67,7 +71,7 @@ export const Service = () => {
             error ?
               <div>
                 <div className="modal-header">❌</div>
-                <p className='modal-body'>No se pudieron cargar los servicios.</p>
+                <p className='modal-body'>{ t("i18n.services.004") }</p>
               </div>
               :
               services.map((service, index) => {

@@ -8,6 +8,7 @@ import { AppointmentList } from '../../components/AppointmentList .jsx';
 import { useAppointment } from '../../hooks/useAppointment.js';
 import { AppointmentsContext } from '../../context/AppointmentsContext';
 import { formatDate } from '../../utils/commonUtilities.js';
+import { useTranslation } from "react-i18next";
 
 export const UserHome = () => {
 
@@ -19,6 +20,7 @@ export const UserHome = () => {
   const { handleCreateNewAppointment } = useContext(AppointmentsContext);
   const [appointmentToCancel, setAppointmentToCancel] = useState(null);
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
+  const { t } = useTranslation();
 
    
   
@@ -85,7 +87,7 @@ export const UserHome = () => {
 
         {/* Mensaje de Bienvenida */}
         {userData && (
-          <h2 className="text-center my-3">Hola, {userData.name} 👋</h2>
+          <h2 className="text-center my-3">{ t("i18n.user.001") }{userData.name} 👋</h2>
         )}
 
         {/* Lista de Turnos */}
@@ -100,20 +102,20 @@ export const UserHome = () => {
             <div>
               <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                 <div>
-                  <span style={{ fontSize: "20px" }}>📝 Confirmación de turno</span>
+                  <span style={{ fontSize: "20px" }}>{ t("i18n.appointments.027") }</span>
                 </div>
 
               </div>
               <div className='mt-2'>
-                <p><strong>Servicio:</strong> {newAppointmentData.serviceName}</p>
-                <p><strong>Profesional:</strong> {newAppointmentData.professionalName}</p>
-                <p><strong>Fecha:</strong> {newAppointmentData.date.day + " " + newAppointmentData.date.dayNumber + " de " + capitalize(newAppointmentData.date.month)}</p>
-                <p><strong>Hora:</strong> {newAppointmentData.hour.hour + " hs."}</p>
+                <p><strong>{ t("i18n.appointments.028") }</strong> {newAppointmentData.serviceName}</p>
+                <p><strong>{ t("i18n.appointments.029") }</strong> {newAppointmentData.professionalName}</p>
+                <p><strong>{ t("i18n.appointments.030") }</strong> {newAppointmentData.date.day + " " + newAppointmentData.date.dayNumber + " de " + capitalize(newAppointmentData.date.month)}</p>
+                <p><strong>{ t("i18n.appointments.031") }</strong> {newAppointmentData.hour.hour + " hs."}</p>
 
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <button className="btn btn-primary" onClick={() => onSubmitAppointment()}>Reservar turno</button>
+                <button className="btn btn-primary" onClick={() => onSubmitAppointment()}>{ t("i18n.appointments.049") }</button>
               </div>
             </div>
           }
@@ -121,27 +123,27 @@ export const UserHome = () => {
         <ModalCommon isOpen={cancelModalOpen} onClose={() => setCancelModalOpen(false)}>
           {appointmentToCancel && (
             <div>
-              <h5 className="fw-bold text-center mb-3">¿Querés cancelar este turno?</h5>
+              <h5 className="fw-bold text-center mb-3">{ t("i18n.appointments.050") }</h5>
 
               <div className="mb-2">
                 <h6 className="card-title mb-1 fs-6">{appointmentToCancel.service_name}</h6>
                 <p className="mb-1 small">
-                  <strong>👨‍⚕️ Profesional:</strong> {appointmentToCancel.professional_name}
+                  <strong>👨‍⚕️ { t("i18n.appointments.029") }:</strong> {appointmentToCancel.professional_name}
                 </p>
                 <p className="mb-1 small">
-                  <strong>📆 Fecha:</strong> {appointmentToCancel.day} {formatDate(appointmentToCancel.date)}
+                  <strong>📆 { t("i18n.appointments.030") }:</strong> {formatDate(appointmentToCancel.date) }
                 </p>
                 <p className="mb-1 small">
-                  <strong>⏰ Hora:</strong> {appointmentToCancel.start_hour} hs.
+                  <strong>⏰ { t("i18n.appointments.031") }:</strong> {appointmentToCancel.start_hour} hs.
                 </p>
               </div>
 
               <div className="modal-footer d-flex justify-content-center gap-3 mt-4">
                 <button className="btn btn-outline-secondary px-4" onClick={() => setCancelModalOpen(false)}>
-                  Cancelar
+                  { t("i18n.common.004") }
                 </button>
                 <button className="btn btn-danger px-4" onClick={confirmCancelAppointment}>
-                  Sí, cancelar turno
+                  { t("i18n.appointments.051") }
                 </button>
               </div>
             </div>

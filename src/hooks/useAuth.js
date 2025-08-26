@@ -6,6 +6,7 @@ import { getEnvVariables } from "../helpers/getEnvVariables";
 import { useAppointment } from "./useAppointment";
 import { AppointmentsContext } from "../context/AppointmentsContext";
 import Swal from 'sweetalert2';
+import { useTranslation } from "react-i18next";
 
 
 
@@ -19,6 +20,8 @@ export const useAuth = () => {
 
   const [settingsLoading, setSettingsLoading] = useState(false);
 
+  const { t } = useTranslation();
+
   // FUNCIONES PARA LOGIN DE USUARIO
   
   const startLogin = async( {email, password}) => {
@@ -31,7 +34,7 @@ export const useAuth = () => {
       const data = response.data;
   
       if (!data.ok) {
-        throw new Error(data.message || "Error en el login");
+        throw new Error(data.message || t("i18n.auth.002"));
       }
        // Guardar token en localStorage o en el contexto
        localStorage.setItem("token", data.token);
@@ -42,7 +45,7 @@ export const useAuth = () => {
        deleteOTP(email);
   
     } catch (error) {
-      setError(error.response.data?.message || "Credenciales incorrectas");
+      setError(error.response.data?.message || t("i18n.auth.001"));
       console.log(error);
       setTimeout(() => {
       setError("");
@@ -79,9 +82,7 @@ export const useAuth = () => {
       setError("");
   
       const generatedOtp = generateOtp();
-      //setEmail(email);
-  
-      // 📌 Llamar directamente a la función en lugar de usar useEffect
+      
       await enviarOTPAlServidor(generatedOtp, email);
     };
     
@@ -92,38 +93,37 @@ export const useAuth = () => {
         const data = response.data;
     
         if (!data.ok) {
-          throw new Error(error.response.data?.message || "Error al generar el otp");
+          throw new Error(error.response.data?.message || t("i18n.auth.004"));
           
         }
         if (data.ok) {
-          sendEmail(otp, email);
+          // sendEmail(otp, email);
           setOtp(otp);
           setIsLoginCodeSent(true);
         }
         
       } catch (error) {
-        setError(error.response.data?.message  || "Error al generar el otp");
+        setError(error.response.data?.message  || t("i18n.auth.004"));
         
       } finally {
         setLoadingGenerateCode(false);
       }
     };
 
-    const sendEmail = (passcode, emailParam) => {
-    
-      emailjs
-        .send(VITE_SERVICE_ID, VITE_TEMPLATE_ID, {passcode, email: emailParam}, {
-          publicKey: VITE_PUBLIC_KEY,
-        })
-        .then(
-          () => {
-            showToast("El correo se envió con éxito.", "success");
-          },
-          (error) => {
-            showToast("El correo no pudo ser enviado.", "error");
-          },
-        );
-    };
+   /*const sendEmail = async (passcode, emailParam) => {
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_SERVICE_ID,
+        import.meta.env.VITE_TEMPLATE_ID,
+        { passcode, email: emailParam },
+        { publicKey: import.meta.env.VITE_PUBLIC_KEY }
+      );
+      showToast(t("i18n.auth.005"), "success");
+    } catch (error) {
+      showToast(t("i18n.auth.006"), "error");
+      deleteOTP(emailParam);
+    }
+  };*/
 
     
   const deleteOTP = async (email) => {
@@ -131,11 +131,11 @@ export const useAuth = () => {
 
     try {
       const response = await tuTurnoApi.delete(`/auth/deleteOTP`, {
-        data: { email }  // <-- Enviamos el email en el body
+        data: { email } 
       });
 
     } catch (error) {
-      console.log(error.response.data?.message  || "Error al borrar el otp");
+      console.log(error.response.data?.message  || t("i18n.auth.007"));
     }
   };
   
@@ -151,7 +151,7 @@ export const useAuth = () => {
       const data = response.data;
 
       if (!data.ok) {
-        throw new Error(error.response.data?.message || "Error en el Registro de usuario");
+        throw new Error(error.response.data?.message || t("i18n.auth.003"));
       }
       // Guardar token en localStorage o en el contexto
       localStorage.setItem("token", data.token);
@@ -163,7 +163,7 @@ export const useAuth = () => {
       deleteRegisterOTP(email);
 
     } catch (error) {
-      setError(error.response.data?.message || "Error en el Registro de usuario");
+      setError(error.response.data?.message || t("i18n.auth.003"));
       console.log(error);
       setTimeout(() => {
         setError("");
@@ -180,7 +180,6 @@ export const useAuth = () => {
     const generatedOtp = generateOtp();
     setEmail(email);
 
-    // 📌 Llamar directamente a la función en lugar de usar useEffect
     await enviarOTPRegisterAlServidor(generatedOtp, email);
   };
   
@@ -191,17 +190,17 @@ export const useAuth = () => {
       const data = response.data;
   
       if (!data.ok) {
-        throw new Error(error.response.data.message || "Error al generar el otp");
+        throw new Error(error.response.data.message || t("i18n.auth.004"));
         
       }
       if (data.ok) {
-        sendEmail(otp, email);
+        //sendEmail(otp, email);
         setIsRegisterCodeSent(true);
         setRegisterOtp(otp);
       }
       
     } catch (error) {
-      setError(error.response.data?.message  || "Error al generar el otp de registro");
+      setError(error.response.data?.message  || t("i18n.auth.008"));
       
     } finally {
       setLoadingRegisterCode(false);
@@ -219,7 +218,7 @@ export const useAuth = () => {
       console.log("OTP eliminado:");
   
     } catch (error) {
-      console.log(error.response?.data?.message || "Error al borrar el otp de registro");
+      console.log(error.response?.data?.message || t("i18n.auth.009"));
     }
   };
 
@@ -249,15 +248,15 @@ export const useAuth = () => {
   
       const data = response.data;
       
-      showToast("Datos actualizados correctamente ✅", "success");
+      showToast(t("i18n.auth.010"), "success");
       setError("");
       localStorage.setItem("user", JSON.stringify(data.user));
   
       setSettingsLoading(false);
     } catch (error) {
       console.error(error);
-      setError(error.response?.data?.msg || "Error al actualizar el usuario");
-      Swal.fire('Error al actualizar el usuario', error.response?.data?.msg, 'error');
+      setError(error.response?.data?.msg || t("i18n.auth.011"));
+      Swal.fire(t("i18n.auth.011"), error.response?.data?.msg, 'error');
       setSettingsLoading(false);
     }
   };
