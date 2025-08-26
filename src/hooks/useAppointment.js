@@ -4,6 +4,8 @@ import { ToastContext } from '../context/ToastContext.jsx';
 import Swal from 'sweetalert2';
 import { AppointmentsContext } from "../context/AppointmentsContext.jsx";
 import { AuthContext } from "../context/AuthContext.jsx";
+import { useTranslation } from "react-i18next";
+import { getDayInEnglish } from "../utils/commonUtilities.js";
 
 export const useAppointment = () => {
 
@@ -21,6 +23,8 @@ export const useAppointment = () => {
 
   const { handleCreateNewAppointment } = useContext(AppointmentsContext);
   const {loading, setLoading} = useContext(AuthContext);
+  const { t } = useTranslation();
+
  
 
 
@@ -60,7 +64,7 @@ export const useAppointment = () => {
     const endHour = calculateEndHour(appointmentData.hour.hour, appointmentData.service.time_turns);
 
     const params = {
-      "day": appointmentData.date.day,
+      "day": getDayInEnglish(appointmentData.date.date),
       "start_hour":appointmentData.hour.hour,
       "end_hour": endHour,
       "date": appointmentData.date.date,
@@ -89,8 +93,8 @@ export const useAppointment = () => {
       setUserAppointmentsLoading(false);
     } catch (error) {
       setUserAppointmentsLoading(false);
-      setErrorAppointment(error.response.data?.message || "Error al obtener turnos");
-      Swal.fire('Error al obtener turnos', error.response.data?.message, 'error');
+      setErrorAppointment(error.response.data?.message || t("i18n.appointments.001"));
+      Swal.fire(t("i18n.appointments.001"), error.response.data?.message, 'error');
     }
   };
 
@@ -99,7 +103,7 @@ export const useAppointment = () => {
     try {
       const response = await tuTurnoApi.post("/appointments", appointment);
       const data = response.data;
-      showToast("El turno se reservó correctamente.", "success");
+      showToast(t("i18n.appointments.003"), "success");
       setErrorAppointment("");
       getUserAppointments(data.turno.client_id);
       localStorage.removeItem("newAppointment");
@@ -107,8 +111,8 @@ export const useAppointment = () => {
       setLoading(false);
     } catch (error) {
       localStorage.removeItem("newAppointment");
-      setErrorAppointment(error.response.data?.message || "Error al crear turno");
-      Swal.fire('Error al crear turno', error.response.data?.message, 'error');
+      setErrorAppointment(error.response.data?.message || t("i18n.appointments.004"));
+      Swal.fire(t("i18n.appointments.004"), error.response.data?.message, 'error');
       setLoading(false);
     }
   };
@@ -118,7 +122,7 @@ export const useAppointment = () => {
       const response = await tuTurnoApi.put(`/appointments/cancelByClient/${appointmentId}`);
       const data = response.data;
       // Actualizar lista local tras cancelación
-      showToast("El turno se canceló correctamente.", "success");
+      showToast(t("i18n.appointments.005"), "success");
       getUserAppointments(data.turno.client_id);
       setUserAppointments(prev =>
         prev.map(turno =>
@@ -126,7 +130,7 @@ export const useAppointment = () => {
         )
       );
     } catch (error) {
-      Swal.fire('Error al cancelar turno', error.response.data?.message, 'error');
+      Swal.fire(t("i18n.appointments.006"), error.response.data?.message, 'error');
     }
   };
 

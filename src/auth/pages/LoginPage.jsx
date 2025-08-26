@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useForm } from '../../hooks/useForm';
 import { useAuth } from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
+import { useTranslation } from "react-i18next";
 
 const loginFormFields = {
     loginEmail: '',
@@ -30,6 +31,7 @@ export const LoginPage = () => {
     const { registerName, registerEmail, registerPhone, registerPassword, onInputChange: onRegisterImputChange } = useForm(registerFormFields);
 
     const { startLogin, handleGenerateToken, startRegister, handleGenerateTokenRegister } = useAuth();
+    const { t } = useTranslation();
 
     const loginSubmit = (e) => {
         e.preventDefault();
@@ -44,7 +46,7 @@ export const LoginPage = () => {
 
     useEffect(() => {
         if (error) {
-            Swal.fire('Error en la autenticación', error, 'error');
+            Swal.fire(t("i18n.auth.012"), error, 'error');
         }
     }, [error]);
 
@@ -67,13 +69,13 @@ export const LoginPage = () => {
                 <div className="col-md-5">
                     <div className="card shadow-sm">
                         <div className="card-body">
-                            <h5 className="text-center mb-3">🔑 Ingreso</h5>
+                            <h5 className="text-center mb-3">{ t("i18n.auth.013") }</h5>
                             <form>
                                 <div className="mb-2">
                                     <input
                                         type="email"
                                         className="form-control form-control-sm"
-                                        placeholder="Correo"
+                                        placeholder={ t("i18n.auth.025") }
                                         name="loginEmail"
                                         onChange={onLoginImputChange}
                                         value={loginEmail}
@@ -89,9 +91,9 @@ export const LoginPage = () => {
                                         <button className="btn btn-primary btn-sm" onClick={generateToken} disabled={loadingGenerateCode}>
                                             {loadingGenerateCode ? (
                                                 <>
-                                                    <span className="spinner-border spinner-border-sm me-2"></span> Generando...
+                                                    <span className="spinner-border spinner-border-sm me-2"></span> { t("i18n.auth.014") }
                                                 </>
-                                            ) : "Enviar código"}
+                                            ) : t("i18n.auth.015")}
                                         </button>
                                     )}
 
@@ -102,7 +104,7 @@ export const LoginPage = () => {
                                                 <input
                                                     type={"text"}
                                                     className="form-control form-control-sm"
-                                                    placeholder="Ingrese el código"
+                                                    placeholder={ t("i18n.auth.027") }
                                                     name="loginPassword"
                                                     onChange={onLoginImputChange}
                                                     value={loginPassword}
@@ -111,9 +113,9 @@ export const LoginPage = () => {
                                             <button className="btn btn-success btn-sm" onClick={loginSubmit} disabled={loading}>
                                                 {loading ? (
                                                     <>
-                                                        <span className="spinner-border spinner-border-sm me-2"></span> Iniciando sesión...
+                                                        <span className="spinner-border spinner-border-sm me-2"></span> { t("i18n.auth.016") }
                                                     </>
-                                                ) : "Login"}
+                                                ) : t("i18n.auth.017")}
                                             </button>
                                         </>
 
@@ -124,16 +126,27 @@ export const LoginPage = () => {
                              {/* Botón de tengo un codigo de verificacion */}
                              <div className="text-center mt-3">
                                 <button className="btn btn-link btn-sm" onClick={() => handleHaveAcode()}>
-                                    {!haveAcode ? "Ya tengo un código de verificación" : "No tengo un código de verificación"}
+                                    {!haveAcode ? t("i18n.auth.018") : t("i18n.auth.019")}
                                 </button>
                             </div>
 
                             {/* Botón para mostrar el registro */}
                             <div className="text-center mt-3">
                                 <button className="btn btn-link btn-sm" onClick={() => setShowRegister(!showRegister)}>
-                                    {showRegister ? "← Volver al Login" : "¿No tienes cuenta? Registrarse"}
+                                    {showRegister ? t("i18n.auth.020") : t("i18n.auth.021")}
                                 </button>
                             </div>
+
+                            {/* Botón de no recibí un codigo de verificacion */}
+                            {
+                                (isLoginCodeSent || haveAcode) && (  
+                                <div className="text-center mt-3">
+                                    <button className="btn btn-link btn-sm" onClick={() => generateToken()}>
+                                        { t("i18n.auth.022") }
+                                    </button>
+                                </div>)
+                            }
+                           
 
                             
                         </div>
@@ -145,13 +158,13 @@ export const LoginPage = () => {
                     <div className="col-md-5 mt-3 mt-md-0">
                         <div className="card shadow-sm">
                             <div className="card-body">
-                                <h5 className="text-center mb-3">📝 Registro</h5>
+                                <h5 className="text-center mb-3">{ t("i18n.auth.023") }</h5>
                                 <form>
                                     <div className="mb-2">
                                         <input
                                             type="text"
                                             className="form-control form-control-sm"
-                                            placeholder="Nombre"
+                                            placeholder={ t("i18n.auth.024") }
                                             name="registerName"
                                             value={registerName}
                                             onChange={onRegisterImputChange}
@@ -162,7 +175,7 @@ export const LoginPage = () => {
                                         <input
                                             type="email"
                                             className="form-control form-control-sm"
-                                            placeholder="Correo"
+                                            placeholder={ t("i18n.auth.025") }
                                             name='registerEmail'
                                             value={registerEmail}
                                             onChange={onRegisterImputChange}
@@ -175,7 +188,7 @@ export const LoginPage = () => {
                                         <input
                                             type="tel"
                                             className="form-control form-control-sm"
-                                            placeholder="Teléfono"
+                                            placeholder={t("i18n.auth.026")}
                                             name='registerPhone'
                                             value={registerPhone}
                                             onChange={onRegisterImputChange}
@@ -193,9 +206,9 @@ export const LoginPage = () => {
                                             >
                                                 {loadingRegisterCode ? (
                                                     <>
-                                                        <span className="spinner-border spinner-border-sm me-2"></span> Generando...
+                                                        <span className="spinner-border spinner-border-sm me-2"></span> { t("i18n.auth.014") }
                                                     </>
-                                                ) : "Enviar código"}
+                                                ) : t("i18n.auth.015")}
                                             </button>
                                         </div>
                                     )}
@@ -207,7 +220,7 @@ export const LoginPage = () => {
                                                 <input
                                                     type={"text"}
                                                     className="form-control form-control-sm"
-                                                    placeholder="Ingrese el código"
+                                                    placeholder={ t("i18n.auth.027") }
                                                     name='registerPassword'
                                                     value={registerPassword}
                                                     onChange={onRegisterImputChange}
@@ -218,7 +231,7 @@ export const LoginPage = () => {
                                                     className="btn btn-secondary btn-sm"
                                                     onClick={registerSubmit}
                                                 >
-                                                    Crear cuenta
+                                                    { t("i18n.auth.028") }
                                                 </button>
                                             </div>
                                         </>

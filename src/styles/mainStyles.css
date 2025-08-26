@@ -210,3 +210,18 @@ p {
   background-color: #e5cb7d; /* Un poco más oscuro para hover */
   color: #000000;
 }
+
+.language-dropdown .dropdown-item {
+  color: white;
+  font-size: 0.8rem;
+  padding: 0.25rem 1rem;
+}
+
+.language-dropdown .dropdown-item:hover {
+  background-color: #333333;
+  color: white;
+}
+
+.language-dropdown .dropdown-menu {
+  background-color: #212529;
+}

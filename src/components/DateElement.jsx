@@ -3,13 +3,14 @@ import '../styles/mainStyles.css'
 
 import Swal from 'sweetalert2';
 import "sweetalert2/dist/sweetalert2.min.css";
+import { useTranslation } from "react-i18next";
 
 
 
 
 
 export const DateElement = ({ keyDate, date, onSelectDate }) => {
-
+  const { t } = useTranslation();
 
   return (
     <>
@@ -22,7 +23,7 @@ export const DateElement = ({ keyDate, date, onSelectDate }) => {
             disabled={date.isDisabled}
             onClick={(event) => {
               if (date.isDisabled) {
-                Swal.fire('Fecha no disponible', 'Por favor seleccione otra fecha', 'error');
+                Swal.fire( t("i18n.appointments.036") , t("i18n.appointments.037"), "error");
                 return;
               }
               onSelectDate(date);

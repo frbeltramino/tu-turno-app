@@ -7,16 +7,19 @@ import { ProfessionalsAndServicesContext } from '../context/ProfessionalsAndServ
 import { capitalize } from '../utils/commonUtilities.js'
 import { AuthContext } from '../context/AuthContext';
 import { useAppointment } from '../hooks/useAppointment.js';
+import { useTranslation } from "react-i18next";
+import { formatDate } from '../utils/commonUtilities.js'
 
 
 export const ButtonConfirm = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
 
-   const { getDateSelected, getHourSelected, getWorkingDaysProfessional, getArrAMHours, getArrPMHours  } = useContext(DatesAndHoursContext);
-   const { getSelectedService, getSelectedProfessional } = useContext(ProfessionalsAndServicesContext);
-   const { handleOnAutenticate, authStatus } = useContext(AuthContext)
-   const { createNewAppointment, collectNewAppointmentData } = useAppointment();
+  const { getDateSelected, getHourSelected, getWorkingDaysProfessional, getArrAMHours, getArrPMHours  } = useContext(DatesAndHoursContext);
+  const { getSelectedService, getSelectedProfessional } = useContext(ProfessionalsAndServicesContext);
+  const { handleOnAutenticate, authStatus } = useContext(AuthContext)
+  const { createNewAppointment, collectNewAppointmentData } = useAppointment();
+  const { t } = useTranslation();
 
    const getAppointmentData = () => {
     return {
@@ -78,7 +81,7 @@ export const ButtonConfirm = () => {
         onClick={() => { setModalOpen(true) }}> 
         <FontAwesomeIcon icon={faShoppingCart} size="1x" color="white"/>
         &nbsp;
-        Pedir Turno</button>
+        { t("i18n.appointments.026") }</button>
       </div>
       <div className="flex flex-col items-center justify-center h-screen">
         <ModalCommon isOpen={modalOpen} onClose={() => setModalOpen(false)}>
@@ -87,20 +90,20 @@ export const ButtonConfirm = () => {
             <div>
               <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                 <div>
-                  <span style={{ fontSize: "20px"}}>📝 Confirmación de turno</span>
+                  <span style={{ fontSize: "20px"}}>{ t("i18n.appointments.027") }</span>
                 </div>
                  
               </div>
               <div className='mt-2'>
-                <p><strong>Servicio:</strong> { getSelectedService().name}</p>
-                <p><strong>Profesional:</strong> {getSelectedProfessional().name}</p>
-                <p><strong>Fecha:</strong> {getDateSelected().day + " " + getDateSelected().dayNumber + " de " + capitalize(getDateSelected().month)}</p>
-                <p><strong>Hora:</strong> {getHourSelected().hour + " hs."}</p>
+                <p><strong>{ t("i18n.appointments.028") }</strong> { getSelectedService().name}</p>
+                <p><strong>{ t("i18n.appointments.029") }</strong> {getSelectedProfessional().name}</p>
+                <p><strong>{ t("i18n.appointments.030") }</strong> {formatDate(getDateSelected().date)}</p>
+                <p><strong>{ t("i18n.appointments.031") }</strong> {getHourSelected().hour + " hs."}</p>
 
               </div> 
 
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <button className="btn btn-primary" onClick={() => onSubmitAppointment() }>{authStatus === "authenticated" ? "Reservar" : "Autenticarme y reservar"}</button>
+                <button className="btn btn-primary" onClick={() => onSubmitAppointment() }>{authStatus === "authenticated" ? t("i18n.appointments.032") : t("i18n.appointments.033")}</button>
               </div>
             </div>
           }

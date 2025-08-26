@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ProfessionalsAndServicesContext } from './ProfessionalsAndServicesContext'
 import { tuTurnoApi } from '../api';
+import { useTranslation } from "react-i18next";
 
 export const ProfessionalsAndServicesProvider = ({ children }) => {
   const [selectedService, setSelectedService] = useState({});
@@ -8,6 +9,7 @@ export const ProfessionalsAndServicesProvider = ({ children }) => {
   const [professionals, setProfessionals] = useState([]);
   const [professional, setProfessional] = useState({});
   const [error, setError] = useState({});
+  const { t } = useTranslation();
 
   /*const getServices = () => {
     fetch("/mocks/services.json") // Llama al JSON en public/
@@ -24,15 +26,15 @@ export const ProfessionalsAndServicesProvider = ({ children }) => {
   
       const data = response.data;
       if (!data.ok) {
-        throw new Error(data.message || "Error en la consulta de servicios");
+        throw new Error(data.message || t("i18n.Professionals.provider.001"));
       }
       setServices(data.services);
       setError(false);
     } catch (error) {
       if (error.response) {
-        setError(error.response.data?.message || "Error en la consulta de servicios");
+        setError(error.response.data?.message || t("i18n.Professionals.provider.001"));
       } else {
-        setError("No se pudo conectar con el servidor");
+        setError(t("i18n.Professionals.provider.002"));
       }
     }
   };

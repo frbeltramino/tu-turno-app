@@ -4,6 +4,7 @@ import { ModalCommon } from '../../components/ModalCommon';
 import { Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { useAuth } from '../../hooks/useAuth';
+import { useTranslation } from "react-i18next";
 
 export const UserSettings = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -13,6 +14,8 @@ export const UserSettings = () => {
   const [tempValue, setTempValue] = useState("");
 
   const { updateUserData, settingsLoading} = useAuth();
+
+  const { t } = useTranslation();
 
   const openModal = (field) => {
     setFieldToEdit(field);
@@ -28,7 +31,7 @@ export const UserSettings = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (userData.name == "" || userData.phone == "") {
-      Swal.fire('Error', 'Los campos no pueden estar sin valor.', 'error');
+      Swal.fire(t("i18n.common.005"), t("i18n.user.002"), 'error');
       return;
     }
     updateUserData(userData);
@@ -38,11 +41,11 @@ export const UserSettings = () => {
     <>
       <Header />
       <div className="container mt-4">
-        <h2 className="text-center mb-4">🧾 Mis Datos</h2>
+        <h2 className="text-center mb-4">{ t("i18n.user.003") }</h2>
         <form onSubmit={handleSubmit} className="mx-auto" style={{ maxWidth: '400px' }}>
           <div className="mb-3 d-flex justify-content-between align-items-center">
             <div style={{ width: '100%' }}>
-              <label className="form-label">Nombre</label>
+              <label className="form-label">{ t("i18n.user.004") }</label>
               <input
                 type="text"
                 className="form-control"
@@ -57,7 +60,7 @@ export const UserSettings = () => {
 
           <div className="mb-3 d-flex justify-content-between align-items-center">
             <div style={{ width: '100%' }}>
-              <label className="form-label">Teléfono</label>
+              <label className="form-label">{ t("i18n.user.005") }</label>
               <input
                 type="text"
                 className="form-control"
@@ -71,7 +74,7 @@ export const UserSettings = () => {
           </div>
 
           <div className="mb-3">
-            <label className="form-label">Email</label>
+            <label className="form-label">{ t("i18n.user.006") }</label>
             <input
               type="email"
               className="form-control"
@@ -81,15 +84,15 @@ export const UserSettings = () => {
           </div>
 
           <button type="submit" className="btn btn-primary w-100" disabled={settingsLoading}>{settingsLoading ? (<>
-            <span className="spinner-border spinner-border-sm me-2"></span> Guardando...
-          </>) : "Guardar cambios"}</button>
+            <span className="spinner-border spinner-border-sm me-2"></span> { t("i18n.common.006") }
+          </>) : t("i18n.common.007")}</button>
         </form>
       </div>
 
       <ModalCommon isOpen={modalOpen} onClose={() => setModalOpen(false)}>
       <div className="p-4">
         <h5 className="mb-3 text-lg font-semibold">
-          Editar {fieldToEdit === 'name' ? 'Nombre' : 'Teléfono'}
+          { t("i18n.user.007") } {fieldToEdit === 'name' ? t("i18n.user.004") : t("i18n.user.005")}
         </h5>
 
         <input
@@ -101,10 +104,10 @@ export const UserSettings = () => {
 
         <div className="d-flex justify-content-end gap-2">
           <button className="btn btn-secondary" onClick={() => setModalOpen(false)}>
-            Cancelar
+            { t("i18n.common.004") }
           </button>
             <button className="btn btn-primary" onClick={handleSaveField}>
-              Aceptar
+              { t("i18n.common.008") }
             </button>
         </div>
       </div>

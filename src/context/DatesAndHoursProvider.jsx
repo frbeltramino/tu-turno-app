@@ -4,6 +4,7 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
 import { turnConstants } from '../turnConstants';
 import { splitDate } from '../utils/commonUtilities.js';
 import tuTurnoApi from '../api/tuTurnoApi.js';
+import { useTranslation } from "react-i18next";
 
 export const DatesAndHoursProvider = ({ children }) => {
 
@@ -22,6 +23,7 @@ export const DatesAndHoursProvider = ({ children }) => {
   const [professional, setProfessional] = useState({});
   const [feriados, setFeriados] = useState([]);
   const [selectedServiceDuration, setSelectedServiceDuration] = useState();
+  const { i18n } = useTranslation();
 
   // const setDatesAndHours = (datesAndHours) => {
   //   setDates(datesAndHours);
@@ -45,10 +47,10 @@ export const DatesAndHoursProvider = ({ children }) => {
       if (response.data.ok) {
         setAppointments(response.data.turnos); // Asumimos que la API devuelve { ok: true, turnos: [...] }
       } else {
-        console.error("Error en la respuesta de turnos:", response.data.message);
+        console.error(t("i18n.appointments.provider.001"), response.data.message);
       }
     } catch (error) {
-      console.error("Error al obtener turnos desde la API:", error);
+      console.error(t("i18n.appointments.provider.002"), error);
     }
   };
 
@@ -219,34 +221,46 @@ export const DatesAndHoursProvider = ({ children }) => {
     return `${year}-${month}-${day}`;
   };
 
-  const getDates = () => {
-    const startDate = new Date();
-    const endDate = new Date();
-    endDate.setDate(startDate.getDate() + 30);
+const getDates = () => {
+  const startDate = new Date();
+  const endDate = new Date();
+  endDate.setDate(startDate.getDate() + 30);
 
-    for (let i = 0; i < 30; i++) {
-      const date = new Date(startDate);
-      date.setDate(date.getDate() + i);
-      const day = turnConstants().turns.spanish_days[date.getDay()];
-      const dayNumber = date.getDate();
-      const month = date.toLocaleString('default', { month: 'long' });
-      const isActive = false;
-      const isDisabled = true;
-      const id = i + 1;
-      const localDate = getLocalDateString(date);
-      dates.push({
-        date: localDate,
-        isActive,
-        isDisabled,
-        id,
-        month,
-        day,
-        dayNumber
-      });
+  const dates = [];
+
+  for (let i = 0; i < 30; i++) {
+    const date = new Date(startDate);
+    date.setDate(date.getDate() + i);
+
+    let day, dayNumber, month;
+
+    if (i18n.language === "es") {
+      day = turnConstants().turns.spanish_days[date.getDay()];
+    } else {
+      day = turnConstants().turns.english_days[date.getDay()];
     }
 
-    setDates(dates);
-  };
+    dayNumber = date.getDate();
+    month = date.toLocaleString('default', { month: 'long' });
+
+    const isActive = false;
+    const isDisabled = true;
+    const id = i + 1;
+    const localDate = getLocalDateString(date);
+
+    dates.push({
+      date: localDate,
+      isActive,
+      isDisabled,
+      id,
+      month,
+      day,
+      dayNumber
+    });
+  }
+
+  setDates(dates);
+};
 
   useEffect(() => {
     if (dates.length === 0) {
@@ -261,7 +275,7 @@ export const DatesAndHoursProvider = ({ children }) => {
       const { data } = await tuTurnoApi.get("/holidays/");
       setFeriados(data.holidays);
     } catch (error) {
-      console.error("Error cargando feriados", error);
+      console.error(t("i18n.appointments.provider.003"), error);
     }
   };
 
@@ -281,6 +295,16 @@ export const DatesAndHoursProvider = ({ children }) => {
     setProfessional(professionaParam);
     setSelectedServiceDuration(selectedService.time_turns);
     const professionalWorkingDays = professionaParam.working_days;
+
+    const daysTranslation =
+      i18n.language === "es"
+        ? turnConstants().turns.spanish_days
+        : turnConstants().turns.english_days;
+
+    for (let i = 0; i < professionalWorkingDays.length; i++) {
+      professionalWorkingDays[i].day = daysTranslation[professionalWorkingDays[i].index_day];
+    }
+
     const professionalWorkingOcuppedTurns = professionaParam.ocupped_turns;
     const professionalHolidays = professionaParam.holidays;
     const arrWorkingDays = dates;
