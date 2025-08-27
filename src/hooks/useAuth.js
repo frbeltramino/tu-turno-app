@@ -258,7 +258,6 @@ export const useAuth = () => {
     }
   };
 
-
   const updateUserData = async (userData) => {
     const { _id, name, phone } = userData;
     setSettingsLoading(true);
