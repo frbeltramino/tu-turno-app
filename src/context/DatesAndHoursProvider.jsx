@@ -388,6 +388,7 @@ const getDates = () => {
   const resetWorkingHours = () => {
     setHoursAM([]);
     setHoursPM([]);
+    setSelectedHour({});
   }
 
   useEffect(() => {
