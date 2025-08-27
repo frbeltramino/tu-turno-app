@@ -4,10 +4,7 @@ import '../styles/mainStyles.css'
 import Swal from 'sweetalert2';
 import "sweetalert2/dist/sweetalert2.min.css";
 import { useTranslation } from "react-i18next";
-
-
-
-
+import { getI18nMonth, getI18nDay } from '../utils/commonUtilities.js';
 
 export const DateElement = ({ keyDate, date, onSelectDate }) => {
   const { t } = useTranslation();
@@ -15,7 +12,7 @@ export const DateElement = ({ keyDate, date, onSelectDate }) => {
   return (
     <>
       <div className='dateElementContainer' key={keyDate}>
-        <p className='dateButtonFont' style={{ marginTop: '10px', textAlign: 'justify' }} >{date.month}</p>
+        <p className='dateButtonFont' style={{ marginTop: '10px', textAlign: 'justify' }} >{ getI18nMonth(date.date) }</p>
 
         {
           <div className='dateButton'
@@ -29,7 +26,7 @@ export const DateElement = ({ keyDate, date, onSelectDate }) => {
               onSelectDate(date);
             }}>
             <div>
-              <p className='dateButtonFont' style={{ marginTop: '10px' }}>{date.day}</p>
+              <p className='dateButtonFont' style={{ marginTop: '10px' }}>{getI18nDay(date.date)}</p>
               <p className='dateButtonFont' style={{ textAlign: 'center', }}>{date.dayNumber}</p>
             </div>
           </div>

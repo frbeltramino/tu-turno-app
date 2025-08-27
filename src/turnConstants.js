@@ -380,7 +380,7 @@ export const turnConstants = () => {
         DOMINGO: "Domingo"
       },
       "spanish_days" : ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-      "english_days" : ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+      "english_days" : ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
     }
   }
 }

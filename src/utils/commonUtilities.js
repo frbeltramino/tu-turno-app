@@ -1,4 +1,4 @@
-import dayjs from "dayjs";
+import dayjs, { locale } from "dayjs";
 import "dayjs/locale/es";
 import "dayjs/locale/en";
 import utc from "dayjs/plugin/utc";
@@ -30,4 +30,14 @@ export function splitDate(dateString, separator, part) {
 
 export function getDayInEnglish(dateString) {
   return dayjs.utc(dateString).locale("en").format("dddd"); 
+}
+
+export function getI18nMonth(dateString) {
+  const lang = i18n.language;
+  return dayjs.utc(dateString).locale(lang).format("MMMM");
+}
+
+export function getI18nDay(dateString) {
+  const lang = i18n.language;
+  return dayjs.utc(dateString).locale(lang).format("dddd");
 }

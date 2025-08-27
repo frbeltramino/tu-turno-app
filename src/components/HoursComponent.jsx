@@ -18,18 +18,18 @@ const { t } = useTranslation();
     <>
       <div className="row justify-content-center col-12 col-md-12">
         <div className="col-10 col-md-8 mt-5 offset-sm-1 d-flex justify-content-between align-items-center">
-          <h3>{  t("i18n.appointments.045") }</h3>
+          {hoursAM.length === 0 && hoursPM.length === 0 ? <div></div> : <h3>{  t("i18n.appointments.045") }</h3> }
         </div>
       </div>
 
       {hoursAM.length === 0 && hoursPM.length === 0 ? (
         // 🟡 Mensaje de advertencia si no hay fecha seleccionada
         <div className="row justify-content-center col-12 col-md-12">
-          <div className="col-10 col-md-8 mt-5 offset-sm-1">
+          {/* <div className="col-10 col-md-8 mt-5 offset-sm-1">
             <div className="alert alert-warning text-center">
               ⚠️ <strong>{ t("i18n.appointments.046") }</strong>.
             </div>
-          </div>
+          </div> */}
         </div>
       ) : hoursLoading ? (
         // ⏳ Cargando horas
