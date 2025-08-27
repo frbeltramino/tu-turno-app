@@ -75,13 +75,16 @@ export const ButtonConfirm = () => {
   return (
     <>
       <div div className="col-12 col-md-12" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '16px', marginBottom: '16px' }}>
-        <button 
-        className={ getHourSelected().id != null ? 'btn btn-primary w-100 w-md-200' : 'btn btn-secondary w-100 w-md-200'}
-        disabled={ getHourSelected().id == null }
-        onClick={() => { setModalOpen(true) }}> 
-        <FontAwesomeIcon icon={faShoppingCart} size="1x" color="white"/>
-        &nbsp;
-        { t("i18n.appointments.026") }</button>
+        {getHourSelected().id == null ? <div></div>
+          :
+          <button
+            className={getHourSelected().id != null ? 'btn btn-primary w-100 w-md-200' : 'btn btn-secondary w-100 w-md-200'}
+            disabled={getHourSelected().id == null}
+            onClick={() => { setModalOpen(true) }}>
+            <FontAwesomeIcon icon={faShoppingCart} size="1x" color="white" />
+            &nbsp;
+            {t("i18n.appointments.026")}</button>
+        } 
       </div>
       <div className="flex flex-col items-center justify-center h-screen">
         <ModalCommon isOpen={modalOpen} onClose={() => setModalOpen(false)}>
