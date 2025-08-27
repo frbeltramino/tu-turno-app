@@ -20,7 +20,7 @@ export const useAuth = () => {
 
   const [settingsLoading, setSettingsLoading] = useState(false);
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // FUNCIONES PARA LOGIN DE USUARIO
   
@@ -111,11 +111,30 @@ export const useAuth = () => {
     };
 
    const sendEmail = async (passcode, emailParam) => {
-    try {
+     const translationsOTP = { 
+        es: {
+          otpTitle: "Código de verificación",
+          noReply: "Este es un mensaje automático. Por favor, no respondas a este correo.",
+          hello: "¡Hola",
+          titleOTP: "Tu nuevo código de verificación",
+          thankYou: "Gracias por usar nuestra aplicación."
+        },
+        en: {
+          otpTitle: "Verification code",
+          noReply: "This is an automated message. Please do not reply to this email.",
+          hello: "Hello",
+          titleOTP: "Your new verification code",
+          thankYou: "Thank you for using our app."
+        }
+      };
+
+      const { otpTitle, noReply, hello, titleOTP, thankYou } = translationsOTP[i18n.language];
+
+     try {
       await emailjs.send(
         import.meta.env.VITE_SERVICE_ID,
         import.meta.env.VITE_TEMPLATE_ID,
-        { passcode, email: emailParam },
+        { OTP: passcode, email: emailParam, nombreCliente: emailParam, otpTitle, noReply, hello, titleOTP, thankYou },
         { publicKey: import.meta.env.VITE_PUBLIC_KEY }
       );
       showToast(t("i18n.auth.005"), "success");
@@ -123,6 +142,7 @@ export const useAuth = () => {
       showToast(t("i18n.auth.006"), "error");
       deleteOTP(emailParam);
     }
+
   };
 
     
@@ -260,7 +280,6 @@ export const useAuth = () => {
       setSettingsLoading(false);
     }
   };
-
 
   return {
     startLogin,
