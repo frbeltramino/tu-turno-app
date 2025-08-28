@@ -232,7 +232,7 @@ const getDates = () => {
     const date = new Date(startDate);
     date.setDate(date.getDate() + i);
 
-    let day, dayNumber, month;
+    let day, dayNumber, month, index_day;
 
     if (i18n.language === "es") {
       day = turnConstants().turns.spanish_days[date.getDay()];
@@ -242,6 +242,7 @@ const getDates = () => {
 
     dayNumber = date.getDate();
     month = date.toLocaleString('default', { month: 'long' });
+    index_day = date.getDay();
 
     const isActive = false;
     const isDisabled = true;
@@ -255,7 +256,8 @@ const getDates = () => {
       id,
       month,
       day,
-      dayNumber
+      dayNumber,
+      index_day
     });
   }
 
@@ -319,7 +321,7 @@ const getDates = () => {
 
     for (let i = 0; i < professionalWorkingDays.length; i++) {//recorro los dias de trabajo del profesional
       for (let j = 0; j < arrWorkingDays.length; j++) {//recorro los 30 dias que genero a paretir de hoy
-        if (arrWorkingDays[j].day == professionalWorkingDays[i].day) {
+        if (arrWorkingDays[j].index_day == professionalWorkingDays[i].index_day) {
           arrWorkingDays[j] = searchAndModifyDates(arrWorkingDays[j], professionalWorkingDays[i], timeTurns);
         }
 
