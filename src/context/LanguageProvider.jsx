@@ -4,7 +4,7 @@ import i18n from 'i18next';
 
 export const LanguageProvider = ({ children }) => {
   // idioma inicial → chequeo localStorage primero
-  const initialLang = localStorage.getItem("lang") || "es";
+  const initialLang = localStorage.getItem("lang") || "en";
 
   const [language, setLanguage] = useState(initialLang);
 

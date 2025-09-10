@@ -15,7 +15,7 @@ tuTurnoApi.interceptors.request.use(function (config) {
   config.headers = {
     ...config.headers,
     'x-token': localStorage.getItem("token"),
-    "x-lang": localStorage.getItem("lang") || "es" 
+    "x-lang": localStorage.getItem("lang") || "en" 
   }
   return config;
 });
